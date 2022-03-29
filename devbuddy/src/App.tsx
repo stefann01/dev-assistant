@@ -8,21 +8,16 @@ import PropertiesProvider from "./contexts/PropertiesContext";
 function App() {
   return (
     <Router>
-      <div className={styles.appContainer}>
-        <SideBar />
-        <Routes>
-          <Route path="/" element={<p>Home</p>} />
-          <Route
-            path="/class-generator"
-            element={
-              <PropertiesProvider>
-                <ClassGenerator />
-              </PropertiesProvider>
-            }
-          />
-          <Route path="/color-convertor" element={<p>Color convertor</p>} />
-        </Routes>
-      </div>
+      <PropertiesProvider>
+        <div className={styles.appContainer}>
+          <SideBar />
+          <Routes>
+            <Route path="/" element={<p>Home</p>} />
+            <Route path="/class-generator" element={<ClassGenerator />} />
+            <Route path="/color-convertor" element={<p>Color convertor</p>} />
+          </Routes>
+        </div>
+      </PropertiesProvider>
     </Router>
   );
 }

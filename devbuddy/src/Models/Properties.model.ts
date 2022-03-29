@@ -10,7 +10,11 @@ export default class Property {
   ) {}
 }
 
-class Test {
-  public static readonly x = 10;
-  constructor(protected readonly y: number, readonly x: number = 10) {}
+interface Test {
+  readonly x: number;
+  // function name(params:type);
+}
+
+class Test1 implements Test {
+  x = 10;
 }

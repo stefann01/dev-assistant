@@ -51,7 +51,7 @@ export const TSInterfaceTemplate = ({
     ${properties
       .map(
         (prop) =>
-          `${prop.name}:${prop.type},  
+          `${prop.isReadonly ? "readonly" : ""} ${prop.name}:${prop.type},  
           `
       )
       .join("")}
