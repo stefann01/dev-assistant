@@ -1,0 +1,41 @@
+.sidebarContainer {
+  width: 20%;
+  height: 100vh;
+  background-color: #121212;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-right: 1px solid #bdbdbd;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
+  cursor: pointer;
+}
+
+.logoTitle {
+  margin: 0;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 29px;
+  color: white;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.logoImage {
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.codeItemsContainer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
