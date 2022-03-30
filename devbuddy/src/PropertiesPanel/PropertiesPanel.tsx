@@ -5,7 +5,7 @@ import { useProperties } from "../contexts/PropertiesContext";
 import { PropertiesReducerActions } from "../reducers/PropertiesReducer";
 import Property from "../Models/Properties.model";
 export default function PropertiesPanel() {
-  const { dispatch, properties } = useProperties();
+  const { dispatch, properties, entityType } = useProperties();
 
   const addProperty = () =>
     dispatch({ type: PropertiesReducerActions.ADD_PROPERTY });
@@ -33,7 +33,7 @@ export default function PropertiesPanel() {
       <div className={styles.body}>
         {properties &&
           properties.map((prop, index) => (
-            <div className={styles.propValuesContainer}>
+            <div className={styles.propValuesContainer} key={index}>
               <button
                 className={styles.removeBtn}
                 onClick={() =>
@@ -47,18 +47,20 @@ export default function PropertiesPanel() {
                 )}
               </button>
 
-              <button
-                className={styles.removeBtn}
-                onClick={() =>
-                  editProperty(index, { ...prop, isStatic: !prop.isStatic })
-                }
-              >
-                {prop.isStatic ? (
-                  "S"
-                ) : (
-                  <span style={{ textDecoration: "line-through" }}>S</span>
-                )}
-              </button>
+              {entityType !== "interface" && (
+                <button
+                  className={styles.removeBtn}
+                  onClick={() =>
+                    editProperty(index, { ...prop, isStatic: !prop.isStatic })
+                  }
+                >
+                  {prop.isStatic ? (
+                    "S"
+                  ) : (
+                    <span style={{ textDecoration: "line-through" }}>S</span>
+                  )}
+                </button>
+              )}
 
               <button
                 className={styles.removeBtn}
@@ -82,35 +84,43 @@ export default function PropertiesPanel() {
                 )}
               </button>
 
-              <select
-                value={prop.access}
-                onChange={(e) =>
-                  editProperty(index, {
-                    ...prop,
-                    access: e.target.value as
-                      | "public"
-                      | "private"
-                      | "protected",
-                  })
-                }
-              >
-                <option value={"public"}>public</option>
-                <option value={"protected"}>protected</option>
-                <option value={"private"}>private</option>
-              </select>
+              {entityType !== "interface" && (
+                <select
+                  value={prop.access}
+                  onChange={(e) =>
+                    editProperty(index, {
+                      ...prop,
+                      access: e.target.value as
+                        | "public"
+                        | "private"
+                        | "protected",
+                    })
+                  }
+                >
+                  <option value={"public"}>public</option>
+                  <option value={"protected"}>protected</option>
+                  <option value={"private"}>private</option>
+                </select>
+              )}
 
               <input
                 className={styles.propertyElement}
                 value={prop.name}
                 onChange={(e) =>
-                  editProperty(index, { ...prop, name: e.target.value })
+                  editProperty(index, {
+                    ...prop,
+                    name: e.target.value.replace(/\s/g, ""),
+                  })
                 }
               />
               <input
                 className={styles.propertyElement}
                 value={prop.type}
                 onChange={(e) =>
-                  editProperty(index, { ...prop, type: e.target.value })
+                  editProperty(index, {
+                    ...prop,
+                    type: e.target.value.replace(/\s/g, ""),
+                  })
                 }
               />
               <button

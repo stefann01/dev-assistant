@@ -12,9 +12,5 @@ export default class Property {
 
 interface Test {
   readonly x: number;
-  // function name(params:type);
-}
-
-class Test1 implements Test {
-  x = 10;
+  nameFunc(): void;
 }

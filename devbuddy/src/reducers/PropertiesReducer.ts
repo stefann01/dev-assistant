@@ -31,6 +31,10 @@ export function PropertiesReducer(
         ...state,
         properties: state.properties.map((property, index) => {
           if (index === action.payload.index) {
+            //Readonly cannot be on a function
+            if (action.payload.newProperty.isFunction) {
+              action.payload.newProperty.isReadonly = false;
+            }
             return action.payload.newProperty;
           }
           return property;
