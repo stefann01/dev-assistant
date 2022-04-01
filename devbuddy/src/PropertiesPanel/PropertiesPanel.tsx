@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./PropertiesPanel.module.scss";
-import Plus from "../assets/svg/Plus.svg";
 import { useProperties } from "../contexts/PropertiesContext";
 import { PropertiesReducerActions } from "../reducers/PropertiesReducer";
 import Property from "../Models/Properties.model";
+import SectionTitle from "../components/SectionTitle/SectionTitle";
 export default function PropertiesPanel() {
   const { dispatch, properties, entityType } = useProperties();
 
@@ -24,12 +24,7 @@ export default function PropertiesPanel() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        Properties
-        <button className={styles.button} onClick={addProperty}>
-          <img src={Plus} alt="Add property" />
-        </button>
-      </div>
+      <SectionTitle title="Properties" onButtonClick={addProperty} />
       <div className={styles.body}>
         {properties &&
           properties.map((prop, index) => (

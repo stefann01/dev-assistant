@@ -1,0 +1,31 @@
+.container {
+  width: 100%;
+  background: blue;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 56px;
+}
+
+.tab {
+  width: 256px;
+  height: 100%;
+  background-color: red;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid black;
+}
+
+.activeTab {
+  @extend .tab;
+  background-color: aquamarine;
+}
