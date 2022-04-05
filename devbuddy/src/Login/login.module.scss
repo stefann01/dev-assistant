@@ -1,0 +1,28 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+
+  background-color: black;
+
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  height: 600px;
+  width: 370px;
+
+  background-color: gray;
+  border-radius: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.container > input {
+  width: stretch;
+  margin: 10px 0px 10px 0px;
+}
