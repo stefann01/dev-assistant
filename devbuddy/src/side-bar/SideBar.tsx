@@ -40,6 +40,14 @@ export default function SideBar() {
         <NavItem title="Radius generator" />
         <NavItem title="Shadow generator" />
       </div>
+
+      <NavSectionTitle title="REACT" />
+      <div className={styles.codeItemsContainer}>
+        <NavItem
+          title="React component"
+          onClick={() => navigate("/react-component")}
+        />
+      </div>
     </div>
   );
 }

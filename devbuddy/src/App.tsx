@@ -5,6 +5,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ClassGenerator from "./ClassGenerator/ClassGenerator";
 import PropertiesProvider from "./contexts/PropertiesContext";
 import Login from "./Login/login";
+import ReactComponentGenerator from "./React/component-generator/ReactComponentGenerator";
+import ReactComponentContextProvider from "./contexts/ReactComponentContext";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
 
 function App() {
   function Sidebar() {
@@ -19,15 +23,21 @@ function App() {
   return (
     <Router>
       <PropertiesProvider>
-        <div className={styles.appContainer}>
-          {Sidebar()}
-          <Routes>
-            <Route path="/" element={<p>Home</p>}></Route>
-            <Route path="/class-generator" element={<ClassGenerator />} />
-            <Route path="/color-convertor" element={<p>Color convertor</p>} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        </div>
+        <ReactComponentContextProvider>
+          <div className={styles.appContainer}>
+            {Sidebar()}
+            <Routes>
+              <Route path="/" element={<p>Home</p>}></Route>
+              <Route path="/class-generator" element={<ClassGenerator />} />
+              <Route path="/color-convertor" element={<p>Color convertor</p>} />
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/react-component"
+                element={<ReactComponentGenerator />}
+              />
+            </Routes>
+          </div>
+        </ReactComponentContextProvider>
       </PropertiesProvider>
     </Router>
   );

@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CodeTextarea from "../components/CodeTextarea/CodeTextarea";
 import { useProperties } from "../contexts/PropertiesContext";
 import PropertiesPanel from "../PropertiesPanel/PropertiesPanel";
 import { PropertiesReducerActions } from "../reducers/PropertiesReducer";
 import styles from "./ClassGenerator.module.scss";
+import { auth, db, logout } from "../firebase";
+import { query, collection, getDocs, where } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function ClassGenerator() {
+  const [user, loading, error] = useAuthState(auth);
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+  const fetchUserName = async () => {
+    try {
+      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+      const doc = await getDocs(q);
+      const data = doc.docs[0].data();
+      setName(data.name);
+    } catch (err) {
+      console.error(err);
+      alert("An error occured while fetching user data");
+    }
+  };
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/");
+    fetchUserName();
+  }, [user, loading]);
+
   const { entityType, dispatch } = useProperties();
 
   const changeEntity = (entity: "interface" | "class" | "builder") => {
@@ -18,7 +42,7 @@ export default function ClassGenerator() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>Auto generated Class / Interface / Builder</h1>
+        {user && <h1>Auto generated Class / Interface / Builder</h1>}
       </div>
       <div className={styles.content}>
         <div className={styles.leftSide}>
