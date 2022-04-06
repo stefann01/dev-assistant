@@ -3,16 +3,11 @@ import React, { useState } from "react";
 import styles from "./login.module.scss";
 
 export default function Login() {
-  const [email, setEmail] = useState<String>("");
-  const [password, setPassword] = useState<String>("");
+  const [userCredentials, setUserCredentials] = useState({
+    email: "",
+    password: "",
+  });
 
-  function emailUpdate(e: String) {
-    setEmail(e);
-  }
-
-  function passwordUpdate(e: String) {
-    setPassword(e);
-  }
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -20,21 +15,23 @@ export default function Login() {
         <input
           type="text"
           onChange={(e) => {
-            emailUpdate(e.target.value);
+            setUserCredentials({ ...userCredentials, email: e.target.value });
           }}
         />
         <label htmlFor="">Password</label>
         <input
           type="text"
           onChange={(e) => {
-            passwordUpdate(e.target.value);
+            setUserCredentials({
+              ...userCredentials,
+              password: e.target.value,
+            });
           }}
         />
         <input
           type="submit"
           onClick={() => {
-            console.log(email);
-            console.log(password);
+            console.log(userCredentials);
           }}
         />
       </div>

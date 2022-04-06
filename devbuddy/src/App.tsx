@@ -7,10 +7,11 @@ import PropertiesProvider from "./contexts/PropertiesContext";
 import Login from "./Login/login";
 
 function App() {
-  function LoginPageCheck() {
+  function Sidebar() {
     if (window.location.pathname == "/login") {
-      return <div></div>;
-    } else {
+      return <></>;
+    }
+    if (window.location.pathname != "/login") {
       return <SideBar />;
     }
   }
@@ -19,7 +20,7 @@ function App() {
     <Router>
       <PropertiesProvider>
         <div className={styles.appContainer}>
-          {LoginPageCheck()}
+          {Sidebar()}
           <Routes>
             <Route path="/" element={<p>Home</p>}></Route>
             <Route path="/class-generator" element={<ClassGenerator />} />
