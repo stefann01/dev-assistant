@@ -12,7 +12,7 @@ interface ComponentDetailProps {
 }
 
 export default function ComponentDetail({ style }: ComponentDetailProps) {
-  const { props, states, isStyleModule, cssMode, name, dispatch } =
+  const { props, states, effects, isStyleModule, cssMode, name, dispatch } =
     useReactComponent();
 
   return (
@@ -154,32 +154,64 @@ export default function ComponentDetail({ style }: ComponentDetailProps) {
       </div>
 
       <div className={styles.propsContainer}>
-        <SectionTitle title={"Effects"} onButtonClick={() => {}} />
+        <SectionTitle
+          title={"Effects"}
+          onButtonClick={() =>
+            dispatch({ type: ReactComponentActions.ADD_EFFECT })
+          }
+        />
         <div className={styles.propsItems}>
-          <div className={styles.effectsSwitchRow}>
-            <Switch
-              style={{ width: "40px", height: "16px" }}
-              isActive={false}
-              onChange={() => {}}
-            />
-            <p>Cleanup function</p>
-          </div>
+          {effects.map((effect, index) => (
+            <div key={index} style={{ marginBottom: "20px" }}>
+              <div className={styles.effectsSwitchRow}>
+                <Switch
+                  style={{ width: "40px", height: "16px" }}
+                  isActive={effect.hasCleanUpFunction}
+                  onChange={() =>
+                    dispatch({
+                      type: ReactComponentActions.TOGGLE_EFFECT_CLEANUP_FUNCTION,
+                      payload: { index },
+                    })
+                  }
+                />
+                <p>Cleanup function</p>
+                <button
+                  style={{ marginLeft: "auto" }}
+                  onClick={() =>
+                    dispatch({
+                      type: ReactComponentActions.REMOVE_EFFECT,
+                      payload: { index },
+                    })
+                  }
+                >
+                  -
+                </button>
+              </div>
 
-          <div className={styles.effectsSwitchRow}>
-            <Switch
-              style={{ width: "40px", height: "16px" }}
-              isActive={true}
-              onChange={() => {}}
-            />
-            <p>Dependency array</p>
-          </div>
+              <div className={styles.effectsSwitchRow}>
+                <Switch
+                  style={{ width: "40px", height: "16px" }}
+                  isActive={effect.hasDependencyArray}
+                  onChange={() =>
+                    dispatch({
+                      type: ReactComponentActions.TOGGLE_EFFECT_DEP_ARRAY,
+                      payload: { index },
+                    })
+                  }
+                />
+                <p>Dependency array</p>
+              </div>
 
-          <div className={styles.effectsSwitchRow}>
-            <Input value="" />
-            <button>+</button>
-          </div>
+              {effect.hasDependencyArray && (
+                <div className={styles.effectsSwitchRow}>
+                  <Input value="" onChange={() => {}} />
+                  <button>+</button>
+                </div>
+              )}
 
-          <div className={styles.divider}></div>
+              <div className={styles.divider}></div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

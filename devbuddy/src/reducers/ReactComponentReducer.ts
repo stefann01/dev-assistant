@@ -11,6 +11,7 @@ enum ReactComponentActions {
   EDIT_STATE,
   REMOVE_STATE,
   ADD_EFFECT,
+  REMOVE_EFFECT,
   TOGGLE_EFFECT_CLEANUP_FUNCTION,
   TOGGLE_EFFECT_DEP_ARRAY,
   ADD_DEP_ARRAY_ITEM,
@@ -109,6 +110,51 @@ export function ReactComponentReducer(
         isStyleModule: action.payload.isStyleModule,
       };
     }
+    case ReactComponentActions.ADD_EFFECT: {
+      return {
+        ...state,
+        effects: [
+          ...state.effects,
+          { hasCleanUpFunction: false, hasDependencyArray: true, depArray: [] },
+        ],
+      };
+    }
+    case ReactComponentActions.TOGGLE_EFFECT_CLEANUP_FUNCTION: {
+      return {
+        ...state,
+        effects: state.effects.map((effect, i) => {
+          if (i === action.payload.index) {
+            return {
+              ...effect,
+              hasCleanUpFunction: !effect.hasCleanUpFunction,
+            };
+          }
+          return effect;
+        }),
+      };
+    }
+    case ReactComponentActions.TOGGLE_EFFECT_DEP_ARRAY: {
+      return {
+        ...state,
+        effects: state.effects.map((effect, i) => {
+          if (i === action.payload.index) {
+            return {
+              ...effect,
+              hasDependencyArray: !effect.hasDependencyArray,
+            };
+          }
+          return effect;
+        }),
+      };
+    }
+
+    case ReactComponentActions.REMOVE_EFFECT: {
+      return {
+        ...state,
+        effects: state.effects.filter((e, i) => i !== action.payload.index),
+      };
+    }
+
     default:
       return state;
   }
