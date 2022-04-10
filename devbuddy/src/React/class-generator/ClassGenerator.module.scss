@@ -27,5 +27,21 @@
 
 .activeTab {
   @extend .tab;
-  background-color: aquamarine;
+  background-color: brown;
+}
+
+.tabIcons {
+  margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tabIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.tabIcon > image {
+  object-fit: cover;
 }

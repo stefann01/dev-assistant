@@ -5,6 +5,7 @@ import styles from "./SideBar.module.scss";
 import Cat from "../assets/svg/Cat.svg";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../firebase";
+import Button from "../components/Button/Button";
 
 export default function SideBar() {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ export default function SideBar() {
           onClick={() => navigate("/react-component")}
         />
       </div>
-      <button onClick={logout}>Log out</button>
+      <Button onClick={logout}>Log out</Button>
     </div>
   );
 }

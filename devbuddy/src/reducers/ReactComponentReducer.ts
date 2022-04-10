@@ -14,7 +14,7 @@ enum ReactComponentActions {
   REMOVE_EFFECT,
   TOGGLE_EFFECT_CLEANUP_FUNCTION,
   TOGGLE_EFFECT_DEP_ARRAY,
-  ADD_DEP_ARRAY_ITEM,
+  ADD_EFFECT_DEPENDENCY,
   REMOVE_DEP_ARRAY_ITEM,
 }
 export { ReactComponentActions };
@@ -152,6 +152,38 @@ export function ReactComponentReducer(
       return {
         ...state,
         effects: state.effects.filter((e, i) => i !== action.payload.index),
+      };
+    }
+
+    case ReactComponentActions.ADD_EFFECT_DEPENDENCY: {
+      return {
+        ...state,
+        effects: state.effects.map((effect, i) => {
+          if (i === action.payload.index) {
+            return {
+              ...effect,
+              depArray: [...effect.depArray, action.payload.dependency],
+            };
+          }
+          return effect;
+        }),
+      };
+    }
+
+    case ReactComponentActions.REMOVE_DEP_ARRAY_ITEM: {
+      return {
+        ...state,
+        effects: state.effects.map((effect, i) => {
+          if (i === action.payload.index) {
+            return {
+              ...effect,
+              depArray: effect.depArray.filter(
+                (dep, i) => i !== action.payload.depIndex
+              ),
+            };
+          }
+          return effect;
+        }),
       };
     }
 

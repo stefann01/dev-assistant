@@ -1,0 +1,27 @@
+@import "../../variables.scss";
+.btn {
+  background-color: $primary;
+  width: auto;
+  height: auto;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  aspect-ratio: 1;
+  border-radius: 2px;
+}
+
+.btn:hover {
+  background-color: $hover;
+}
+
+.btn:active {
+  background-color: $active;
+}
+
+.btn:focus {
+  background-color: $focus;
+}
+
+.btn:disabled {
+  background-color: $disabled;
+}

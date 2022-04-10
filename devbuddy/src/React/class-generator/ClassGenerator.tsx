@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import {
-  ReactComponentTemplate,
-  ReactComponentTestTemplate,
-} from "../../CodeTemplates/CodeTemplates";
+import { ReactComponentTestTemplate } from "../../CodeTemplates/CodeTemplates";
+import { ReactComponentTemplate } from "../../CodeTemplates/ReactComponentTemplate";
 import { useReactComponent } from "../../contexts/ReactComponentContext";
 import { capitalize } from "../../helper/helper";
 import styles from "./ClassGenerator.module.scss";
+import Copy from "../../assets/svg/Copy.svg";
+import Download from "../../assets/svg/Download.svg";
+import Button from "../../components/Button/Button";
 
 export default function ClassGenerator() {
-  const { name, props, states, isStyleModule, cssMode } = useReactComponent();
+  const { name, props, states, effects, isStyleModule, cssMode } =
+    useReactComponent();
   const [activeTab, setActiveTab] = useState<"component" | "style" | "test">(
     "component"
   );
@@ -23,6 +25,22 @@ export default function ClassGenerator() {
           onClick={() => setActiveTab("component")}
         >
           {capitalize(name) || "MyComponent"}.tsx
+          <span className={styles.tabIcons}>
+            <Button
+              style={{ width: "32px", height: "32px", marginRight: "5px" }}
+            >
+              <span className={styles.tabIcon}>
+                <img src={Copy} alt="Copy file" />
+              </span>
+            </Button>
+            <Button
+              style={{ width: "32px", height: "32px", marginRight: "5px" }}
+            >
+              <span className={styles.tabIcon}>
+                <img src={Download} alt="Download file" />
+              </span>
+            </Button>
+          </span>
         </div>
         <div
           role="tab"
@@ -33,6 +51,22 @@ export default function ClassGenerator() {
         >
           {name}.{isStyleModule ? "module." : ""}
           {cssMode}
+          <span className={styles.tabIcons}>
+            <Button
+              style={{ width: "32px", height: "32px", marginRight: "5px" }}
+            >
+              <span className={styles.tabIcon}>
+                <img src={Copy} alt="Copy file" />
+              </span>
+            </Button>
+            <Button
+              style={{ width: "32px", height: "32px", marginRight: "5px" }}
+            >
+              <span className={styles.tabIcon}>
+                <img src={Download} alt="Download file" />
+              </span>
+            </Button>
+          </span>
         </div>
         <div
           role="tab"
@@ -53,6 +87,7 @@ export default function ClassGenerator() {
                   name,
                   props,
                   states,
+                  effects,
                   cssMode,
                   isStyleModule,
                 })}

@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 18px;
+  border-radius: 100px;
+  background: green;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.container:hover {
+  background: #00a8ff;
+}
+
+.chipRemoveBtn {
+  width: 14px;
+  height: 14px;
+  border-radius: 100%;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  padding: 2px;
+  cursor: pointer;
+  background: #fff;
+}
+
+.chipRemoveBtn:hover {
+  background: #e0e0e0;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  line-height: normal;
+  margin: 0;
+}

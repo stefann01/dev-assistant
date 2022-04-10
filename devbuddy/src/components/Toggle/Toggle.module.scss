@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .container {
   position: relative;
   width: 100%;
@@ -13,17 +15,18 @@
   height: 100%;
   width: 50%;
   border-radius: 50%;
-  background-color: #69bee5;
   border-radius: 100px;
   transition: all 0.8s ease;
 }
 
 .toggleLeft {
   transform: translate(0%);
+  background-color: $css;
 }
 
 .toggleRight {
   transform: translateX(100%);
+  background-color: $sass;
 }
 
 .leftText {
