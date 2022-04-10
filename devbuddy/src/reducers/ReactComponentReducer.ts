@@ -11,9 +11,10 @@ enum ReactComponentActions {
   EDIT_STATE,
   REMOVE_STATE,
   ADD_EFFECT,
+  REMOVE_EFFECT,
   TOGGLE_EFFECT_CLEANUP_FUNCTION,
   TOGGLE_EFFECT_DEP_ARRAY,
-  ADD_DEP_ARRAY_ITEM,
+  ADD_EFFECT_DEPENDENCY,
   REMOVE_DEP_ARRAY_ITEM,
 }
 export { ReactComponentActions };
@@ -109,6 +110,83 @@ export function ReactComponentReducer(
         isStyleModule: action.payload.isStyleModule,
       };
     }
+    case ReactComponentActions.ADD_EFFECT: {
+      return {
+        ...state,
+        effects: [
+          ...state.effects,
+          { hasCleanUpFunction: false, hasDependencyArray: true, depArray: [] },
+        ],
+      };
+    }
+    case ReactComponentActions.TOGGLE_EFFECT_CLEANUP_FUNCTION: {
+      return {
+        ...state,
+        effects: state.effects.map((effect, i) => {
+          if (i === action.payload.index) {
+            return {
+              ...effect,
+              hasCleanUpFunction: !effect.hasCleanUpFunction,
+            };
+          }
+          return effect;
+        }),
+      };
+    }
+    case ReactComponentActions.TOGGLE_EFFECT_DEP_ARRAY: {
+      return {
+        ...state,
+        effects: state.effects.map((effect, i) => {
+          if (i === action.payload.index) {
+            return {
+              ...effect,
+              hasDependencyArray: !effect.hasDependencyArray,
+            };
+          }
+          return effect;
+        }),
+      };
+    }
+
+    case ReactComponentActions.REMOVE_EFFECT: {
+      return {
+        ...state,
+        effects: state.effects.filter((e, i) => i !== action.payload.index),
+      };
+    }
+
+    case ReactComponentActions.ADD_EFFECT_DEPENDENCY: {
+      return {
+        ...state,
+        effects: state.effects.map((effect, i) => {
+          if (i === action.payload.index) {
+            return {
+              ...effect,
+              depArray: [...effect.depArray, action.payload.dependency],
+            };
+          }
+          return effect;
+        }),
+      };
+    }
+
+    case ReactComponentActions.REMOVE_DEP_ARRAY_ITEM: {
+      return {
+        ...state,
+        effects: state.effects.map((effect, i) => {
+          if (i === action.payload.index) {
+            return {
+              ...effect,
+              depArray: effect.depArray.filter(
+                (dep, i) => i !== action.payload.depIndex
+              ),
+            };
+          }
+          return effect;
+        }),
+      };
+    }
+
     default:
       return state;
   }

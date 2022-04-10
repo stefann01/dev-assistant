@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Input from "../../components/Input/Input";
-import SectionTitle from "../../components/SectionTitle/SectionTitle";
-import Switch from "../../components/Switch/Switch";
 import Toggle from "../../components/Toggle/Toggle";
 import { useReactComponent } from "../../contexts/ReactComponentContext";
 import { ReactComponentActions } from "../../reducers/ReactComponentReducer";
+import EffectsDetail from "../effects-detail/EffectsDetail";
+import PropsDetail from "../props-detail/PropsDetail";
+import StateDetail from "../state-detail/StateDetail";
 import styles from "./ComponentDetail.module.scss";
 
 interface ComponentDetailProps {
@@ -12,8 +13,7 @@ interface ComponentDetailProps {
 }
 
 export default function ComponentDetail({ style }: ComponentDetailProps) {
-  const { props, states, isStyleModule, cssMode, name, dispatch } =
-    useReactComponent();
+  const { isStyleModule, cssMode, name, dispatch } = useReactComponent();
 
   return (
     <div
@@ -38,7 +38,7 @@ export default function ComponentDetail({ style }: ComponentDetailProps) {
         />
       </div>
 
-      <div className={styles.toggleLine}>
+      <div className={styles.styleLine}>
         <Toggle
           style={{ width: "50%" }}
           isActive={cssMode === "scss"}
@@ -65,122 +65,15 @@ export default function ComponentDetail({ style }: ComponentDetailProps) {
       </div>
 
       <div className={styles.propsContainer}>
-        <SectionTitle
-          title={"Props"}
-          onButtonClick={() =>
-            dispatch({ type: ReactComponentActions.ADD_PROP })
-          }
-        />
-        <div className={styles.propsItems}>
-          {props.map((prop, index) => (
-            <div key={index} className={styles.controlsRow}>
-              <Input
-                value={prop.name}
-                onChange={(e) =>
-                  dispatch({
-                    type: ReactComponentActions.EDIT_PROP,
-                    payload: { index, prop: { ...prop, name: e.target.value } },
-                  })
-                }
-              />
-              <Input
-                value={prop.type}
-                onChange={(e) =>
-                  dispatch({
-                    type: ReactComponentActions.EDIT_PROP,
-                    payload: { index, prop: { ...prop, type: e.target.value } },
-                  })
-                }
-              />
-              <button
-                onClick={() =>
-                  dispatch({
-                    type: ReactComponentActions.REMOVE_PROP,
-                    payload: { index },
-                  })
-                }
-              >
-                -
-              </button>
-            </div>
-          ))}
-        </div>
+        <PropsDetail />
       </div>
 
       <div className={styles.propsContainer}>
-        <SectionTitle
-          title={"State"}
-          onButtonClick={() =>
-            dispatch({ type: ReactComponentActions.ADD_STATE })
-          }
-        />
-        <div className={styles.propsItems}>
-          {states.map((s, index) => (
-            <div key={index} className={styles.controlsRow}>
-              <Input
-                value={s.name}
-                onChange={(e) =>
-                  dispatch({
-                    type: ReactComponentActions.EDIT_STATE,
-                    payload: { state: { ...s, name: e.target.value }, index },
-                  })
-                }
-              />
-              <Input
-                value={s.defaultValue}
-                onChange={(e) =>
-                  dispatch({
-                    type: ReactComponentActions.EDIT_STATE,
-                    payload: {
-                      state: { ...s, defaultValue: e.target.value },
-                      index,
-                    },
-                  })
-                }
-              />
-              <button
-                onClick={() =>
-                  dispatch({
-                    type: ReactComponentActions.REMOVE_STATE,
-                    payload: { index },
-                  })
-                }
-              >
-                -
-              </button>
-            </div>
-          ))}
-        </div>
+        <StateDetail />
       </div>
 
       <div className={styles.propsContainer}>
-        <SectionTitle title={"Effects"} onButtonClick={() => {}} />
-        <div className={styles.propsItems}>
-          <div className={styles.effectsSwitchRow}>
-            <Switch
-              style={{ width: "40px", height: "16px" }}
-              isActive={false}
-              onChange={() => {}}
-            />
-            <p>Cleanup function</p>
-          </div>
-
-          <div className={styles.effectsSwitchRow}>
-            <Switch
-              style={{ width: "40px", height: "16px" }}
-              isActive={true}
-              onChange={() => {}}
-            />
-            <p>Dependency array</p>
-          </div>
-
-          <div className={styles.effectsSwitchRow}>
-            <Input value="" />
-            <button>+</button>
-          </div>
-
-          <div className={styles.divider}></div>
-        </div>
+        <EffectsDetail />
       </div>
     </div>
   );

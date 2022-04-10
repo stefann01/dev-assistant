@@ -101,75 +101,12 @@ export const TSInterfaceTemplate = ({
   );
 };
 
-export const ReactComponentTemplate = ({
-  name,
-  props,
-  states,
-  cssMode,
-  isStyleModule,
-}: any) => {
-  return prettier.format(
-    `
-  import React${states.length > 0 ? ", { useState }" : ""} from 'react'; \n
-  ${
-    cssMode === "css"
-      ? `import ${isStyleModule ? "styles from" : ""}'./${name}.css'`
-      : ""
-  }
-  ${
-    cssMode === "scss"
-      ? `import ${isStyleModule ? "styles from" : ""}'./${name}.scss'`
-      : ""
-  }
-
-
-  ${
-    props.length > 0
-      ? `interface ${name}Props{\n
-  ${props.map((prop: any) => `${prop.name}:${prop.type};\n`).join("")}}`
-      : ""
-  }
-
-
-const ${capitalize(name) || "MyComponent"} = (${
-      props.length > 0
-        ? `{${props.map((p: any) => p.name).join(",")}}:${name}Props`
-        : ""
-    })=>{
-
-${
-  states.length > 0
-    ? states
-        .map(
-          (state: any) =>
-            `const [${state.name}, set${state.name}] = useState(${state.defaultValue});`
-        )
-        .join("")
-    : ""
-}
-
-
-
-
-return(
-  <div>${name || "MyComponent"}</div>
-)
-
-    }
-       
-  `,
-    {
-      parser: "typescript",
-      plugins: [typescript, babel],
-    }
-  );
-};
-
 export const ReactComponentTestTemplate = ({ name, props }: any) =>
   prettier.format(
     `
 import ${name} from './${name}';
 import {mount} from "enzyme";
+import { useEffect } from "react";
 
 describe('${name} test', ()=>{
 
