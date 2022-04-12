@@ -101,12 +101,15 @@ export const TSInterfaceTemplate = ({
   );
 };
 
-export const ReactComponentTestTemplate = ({ name, props }: any) =>
+export const ReactComponentTestTemplate: (data: any) => string = ({
+  name,
+  props,
+}: any) =>
   prettier.format(
     `
+    import React from "react";
 import ${name} from './${name}';
 import {mount} from "enzyme";
-import { useEffect } from "react";
 
 describe('${name} test', ()=>{
 
