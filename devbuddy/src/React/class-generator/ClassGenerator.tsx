@@ -4,9 +4,12 @@ import { ReactComponentTemplate } from "../../CodeTemplates/ReactComponentTempla
 import { useReactComponent } from "../../contexts/ReactComponentContext";
 import { capitalize } from "../../helper/helper";
 import styles from "./ClassGenerator.module.scss";
-import Copy from "../../assets/svg/Copy.svg";
-import Download from "../../assets/svg/Download.svg";
-import Button from "../../components/Button/Button";
+import Tab from "../../components/Tab/Tab";
+
+import { ReactComponent as ReactLogo } from "../../assets/svg/react_logo.svg";
+import { ReactComponent as UnitTestLogo } from "../../assets/svg/unit-test.svg";
+import { ReactComponent as SassLogo } from "../../assets/svg/sass_logo.svg";
+import { ReactComponent as CssLogo } from "../../assets/svg/css_logo.svg";
 
 export default function ClassGenerator() {
   const { name, props, states, effects, isStyleModule, cssMode } =
@@ -17,66 +20,26 @@ export default function ClassGenerator() {
   return (
     <div className={styles.container}>
       <div className={styles.tabContainer}>
-        <div
-          role="tab"
-          className={`${styles.tab} ${
-            activeTab === "component" && styles.activeTab
-          }`}
+        <Tab
           onClick={() => setActiveTab("component")}
-        >
-          {capitalize(name) || "MyComponent"}.tsx
-          <span className={styles.tabIcons}>
-            <Button
-              style={{ width: "32px", height: "32px", marginRight: "5px" }}
-            >
-              <span className={styles.tabIcon}>
-                <img src={Copy} alt="Copy file" />
-              </span>
-            </Button>
-            <Button
-              style={{ width: "32px", height: "32px", marginRight: "5px" }}
-            >
-              <span className={styles.tabIcon}>
-                <img src={Download} alt="Download file" />
-              </span>
-            </Button>
-          </span>
-        </div>
-        <div
-          role="tab"
-          className={`${styles.tab} ${
-            activeTab === "style" && styles.activeTab
-          }`}
+          title={(capitalize(name) || "MyComponent") + ".tsx"}
+          isActive={activeTab === "component"}
+          logo={<ReactLogo />}
+        />
+
+        <Tab
           onClick={() => setActiveTab("style")}
-        >
-          {name}.{isStyleModule ? "module." : ""}
-          {cssMode}
-          <span className={styles.tabIcons}>
-            <Button
-              style={{ width: "32px", height: "32px", marginRight: "5px" }}
-            >
-              <span className={styles.tabIcon}>
-                <img src={Copy} alt="Copy file" />
-              </span>
-            </Button>
-            <Button
-              style={{ width: "32px", height: "32px", marginRight: "5px" }}
-            >
-              <span className={styles.tabIcon}>
-                <img src={Download} alt="Download file" />
-              </span>
-            </Button>
-          </span>
-        </div>
-        <div
-          role="tab"
-          className={`${styles.tab} ${
-            activeTab === "test" && styles.activeTab
-          }`}
+          title={`${name}.${isStyleModule ? "module." : ""}${cssMode}`}
+          isActive={activeTab === "style"}
+          logo={cssMode === "scss" ? <SassLogo /> : <CssLogo />}
+        />
+
+        <Tab
           onClick={() => setActiveTab("test")}
-        >
-          {name}.test.tsx
-        </div>
+          title={`${name}.test.tsx`}
+          isActive={activeTab === "test"}
+          logo={<UnitTestLogo />}
+        />
       </div>
       <div>
         {activeTab === "component" && (
