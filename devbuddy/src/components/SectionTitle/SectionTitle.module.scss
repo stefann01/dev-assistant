@@ -23,7 +23,6 @@
   border-radius: 4px;
   background-color: $primary;
   cursor: pointer;
-  margin-left: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,4 +38,23 @@
 
 .button:focus {
   background-color: $focus;
+}
+
+.showHideButton {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #515151;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto;
+  color: white;
+  margin-right: $mb-10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: #a1a1a1;
+  }
 }

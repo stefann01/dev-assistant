@@ -27,6 +27,9 @@ type ReactComponentContextType = {
   props: ReactProp[];
   states: ReactState[];
   effects: ReactEffect[];
+  arePropsVisible: boolean;
+  areStatesVisible: boolean;
+  areEffectsVisible: boolean;
   dispatch: React.Dispatch<Action<ReactComponentActions, any>>;
 };
 
@@ -42,6 +45,9 @@ export default function ReactComponentContextProvider(props: any) {
     props: [],
     states: [],
     effects: [],
+    arePropsVisible: true,
+    areStatesVisible: true,
+    areEffectsVisible: true,
   });
 
   return (
