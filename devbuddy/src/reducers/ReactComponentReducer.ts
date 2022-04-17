@@ -16,6 +16,7 @@ enum ReactComponentActions {
   TOGGLE_EFFECT_DEP_ARRAY,
   ADD_EFFECT_DEPENDENCY,
   REMOVE_DEP_ARRAY_ITEM,
+  TOGGLE_SECTION_VISIBILITY,
 }
 export { ReactComponentActions };
 
@@ -42,6 +43,9 @@ type ReactComponentState = {
   props: ReactProp[];
   states: ReactState[];
   effects: ReactEffect[];
+  arePropsVisible: boolean;
+  areStatesVisible: boolean;
+  areEffectsVisible: boolean;
 };
 
 export function ReactComponentReducer(
@@ -185,6 +189,28 @@ export function ReactComponentReducer(
           return effect;
         }),
       };
+    }
+
+    case ReactComponentActions.TOGGLE_SECTION_VISIBILITY: {
+      switch (action.payload.section) {
+        case "props":
+          return {
+            ...state,
+            arePropsVisible: !state.arePropsVisible,
+          };
+        case "states":
+          return {
+            ...state,
+            areStatesVisible: !state.areStatesVisible,
+          };
+        case "effects":
+          return {
+            ...state,
+            areEffectsVisible: !state.areEffectsVisible,
+          };
+        default:
+          return state;
+      }
     }
 
     default:

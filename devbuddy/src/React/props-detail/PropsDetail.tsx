@@ -9,7 +9,7 @@ import Button from "../../components/Button/Button";
 import { isValidVariableName, isValidTypeName } from "../../helper/helper";
 
 export default function PropsDetail() {
-  const { props, dispatch } = useReactComponent();
+  const { props, arePropsVisible, dispatch } = useReactComponent();
 
   return (
     <>
