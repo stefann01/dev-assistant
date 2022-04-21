@@ -9,35 +9,10 @@
   height: 48px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background: $background-dark;
+  background: $grey3;
   padding-left: 10px;
   padding-right: 10px;
   box-sizing: border-box;
-}
-
-.button {
-  width: 32px;
-  height: 32px;
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  background-color: $primary;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.button:hover {
-  background-color: $hover;
-}
-
-.button:active {
-  background-color: $active;
-}
-
-.button:focus {
-  background-color: $focus;
 }
 
 .showHideButton {

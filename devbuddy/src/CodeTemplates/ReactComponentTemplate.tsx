@@ -1,11 +1,7 @@
 import prettier from "prettier/standalone";
 import babel from "prettier/parser-babel";
 import typescript from "prettier/parser-typescript";
-import { capitalize } from "../helper/helper";
-
-const DEFAULT_COMPONENT_NAME = "MyComponent";
-const DEFAULT_PROP_NAME = "prop";
-const DEFAULT_PROP_TYPE = "type";
+import { getValidTypeName, getValidVariableName } from "../helper/helper";
 
 const getReactImports = ({ hasEffects, hasStates }: any) => {
   let hooks: string[] = [
@@ -19,21 +15,21 @@ const getReactImports = ({ hasEffects, hasStates }: any) => {
 };
 
 const getStyleModeImport = ({ cssMode, isStyleModule, componentName }: any) => {
-  return `import ${isStyleModule ? "styles from" : ""} './${
-    componentName || DEFAULT_COMPONENT_NAME
-  }.${isStyleModule ? "module." : ""}${cssMode}';`;
+  return `import ${isStyleModule ? "styles from" : ""} './${componentName}.${
+    isStyleModule ? "module." : ""
+  }${cssMode}';`;
 };
 
 const getReactPropTypes = ({ props, componentName }: any) => {
   return `${
     props.length > 0
-      ? `interface ${componentName || DEFAULT_COMPONENT_NAME}Props{\n
+      ? `interface ${componentName}Props{\n
       ${props
         .map(
           (prop: any) =>
-            `${prop.name || DEFAULT_PROP_NAME}:${
-              prop.type || DEFAULT_PROP_TYPE
-            };\n`
+            `${getValidVariableName(prop.name)}:${getValidTypeName(
+              prop.type
+            )};\n`
         )
         .join("")}}`
       : ""
@@ -43,9 +39,9 @@ const getReactPropTypes = ({ props, componentName }: any) => {
 const getReactProps = ({ props, componentName }: any) => {
   return `${
     props.length > 0
-      ? `{${props.map((p: any) => p.name || DEFAULT_PROP_NAME).join(",")}}:${
-          componentName || DEFAULT_COMPONENT_NAME
-        }Props`
+      ? `{${props
+          .map((p: any) => getValidVariableName(p.name))
+          .join(",")}}:${componentName}Props`
       : ""
   }`;
 };
@@ -70,7 +66,7 @@ export const ReactComponentTemplate = ({
     
   
   
-  const ${capitalize(name) || DEFAULT_COMPONENT_NAME} = (${getReactProps({
+  const ${name} = (${getReactProps({
       props,
       componentName: name,
     })})=>{

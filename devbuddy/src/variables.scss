@@ -1,8 +1,11 @@
-$primary: #61dbfb; //React logo color
-$hover: #a0e9fd;
-$active: #69bee0;
-$focus: #b0edfd;
-$disabled: #d0e6f7;
+$primary: #2350dd; //React logo color
+$hover: #1d40b0;
+// $active: #69bee0;
+// $focus: #b0edfd;
+$disabled: #8899aa;
+
+$white: #fff;
+$black: #000;
 
 $background: #0b090a;
 $background-light: #222222;
@@ -14,6 +17,13 @@ $background-disabled: #0b090a;
 
 $sass: #cc6699;
 $css: #264de4;
+
+//Greys
+$grey3: #313131;
+$grey2: #212121;
+
+//others
+$purple: #edb5ff;
 
 //Margins
 $mb-16: 16px;

@@ -1,22 +1,16 @@
 @import "../../variables.scss";
 
 .input {
-  height: 32px;
+  height: 30px;
   outline: none;
-  border: 1px solid $primary;
   border-radius: 4px;
   width: 100%;
   padding: 0;
+  border: none;
 }
 
-.input:hover {
-  background: $hover;
-}
-
-.input:active {
-  background: $active;
-}
-
-.input:focus {
-  outline: 1px solid $focus;
+input:focus {
+  box-shadow: 0 0 0 0.2rem linear-gradient(135deg, #cc6699, #264de4);
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
 }

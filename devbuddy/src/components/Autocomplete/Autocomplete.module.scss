@@ -1,0 +1,30 @@
+@import "../../variables.scss";
+
+.list {
+  position: absolute;
+  top: 36px;
+  left: 0px;
+  background: $white;
+  z-index: 99999;
+  margin: 0;
+  border: none;
+  color: $black;
+  list-style: none;
+  padding: 0;
+  border-radius: 4px;
+  width: calc(100%);
+}
+
+.listItem {
+  margin: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  padding-left: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.listItem:hover {
+  background-color: $purple;
+}

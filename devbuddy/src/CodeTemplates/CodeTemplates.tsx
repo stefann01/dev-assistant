@@ -2,7 +2,7 @@ import Property from "../Models/Properties.model";
 import prettier from "prettier/standalone";
 import babel from "prettier/parser-babel";
 import typescript from "prettier/parser-typescript";
-import { capitalize } from "../helper/helper";
+import { capitalize, getValidVariableName } from "../helper/helper";
 
 export type TSTemplateType = {
   entityName?: string;
@@ -119,13 +119,13 @@ describe('${name} test', ()=>{
 ${
   props.length > 0
     ? ` props = {
-${props.map((prop: any) => `${prop.name}: ''`)}}`
+${props.map((prop: any) => `${getValidVariableName(prop.name)}: ''`)}}`
     : ""
 }
   })
 
   test('snapshot test', ()=>{
-    const wrapper = mount(<${name} />);
+    const wrapper = mount(<${name} {...props}/>);
     expect(wrapper).toMatchSnapshot();
   })
 })
