@@ -6,22 +6,20 @@
   border: none;
   outline: none;
   cursor: pointer;
+  border-radius: 4px;
   aspect-ratio: 1;
-  border-radius: 2px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn:hover {
   background-color: $hover;
 }
 
-.btn:active {
-  background-color: $active;
-}
-
-.btn:focus {
-  background-color: $focus;
-}
-
 .btn:disabled {
   background-color: $disabled;
+  color: white;
+  cursor: not-allowed;
 }

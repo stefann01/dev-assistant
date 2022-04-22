@@ -75,6 +75,8 @@
   width: stretch;
   box-sizing: border-box;
   margin-bottom: $mb-16;
+  position: relative;
+  overflow: visible;
 }
 
 .controlsRow {
@@ -91,6 +93,8 @@
 
 .rowItem {
   margin-right: $mb-10;
+  position: relative;
+  width: 100%;
 }
 
 .propsItems {
@@ -99,10 +103,13 @@
   border-bottom-right-radius: 5px;
   width: stretch;
   max-width: 100%;
-  background: $background-dark;
+  background: $grey2;
   box-sizing: border-box;
   overflow-y: auto;
-  border-top: 1px solid $primary;
+  position: relative;
+  overflow: visible;
+  border: 1px solid black;
+  border-top: none;
 }
 
 .effectsSwitchRow {

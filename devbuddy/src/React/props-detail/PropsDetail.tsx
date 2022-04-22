@@ -4,9 +4,9 @@ import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import { useReactComponent } from "../../contexts/ReactComponentContext";
 import { ReactComponentActions } from "../../reducers/ReactComponentReducer";
 import styles from "../component-detail/ComponentDetail.module.scss";
-import Minus from "../../assets/svg/minus.svg";
+import { ReactComponent as Minus } from "../../assets/svg/minus.svg";
 import Button from "../../components/Button/Button";
-import { isValidVariableName, isValidTypeName } from "../../helper/helper";
+import Autocomplete from "../../components/Autocomplete/Autocomplete";
 
 export default function PropsDetail() {
   const { props, arePropsVisible, dispatch } = useReactComponent();
@@ -24,9 +24,7 @@ export default function PropsDetail() {
                   index,
                   prop: {
                     ...prop,
-                    name: isValidVariableName(e.target.value)
-                      ? e.target.value
-                      : "newProp",
+                    name: e.target.value,
                   },
                 },
               })
@@ -34,18 +32,17 @@ export default function PropsDetail() {
           />
         </div>
         <div className={styles.rowItem}>
-          <Input
+          <Autocomplete
             value={prop.type}
-            onChange={(e) =>
+            options={["string", "number", "boolean", "any"]}
+            onChange={(value) =>
               dispatch({
                 type: ReactComponentActions.EDIT_PROP,
                 payload: {
                   index,
                   prop: {
                     ...prop,
-                    type: isValidTypeName(e.target.value)
-                      ? e.target.value
-                      : "type",
+                    type: value,
                   },
                 },
               })
@@ -53,6 +50,7 @@ export default function PropsDetail() {
           />
         </div>
         <Button
+          style={{ width: "32px", height: "32px" }}
           onClick={() =>
             dispatch({
               type: ReactComponentActions.REMOVE_PROP,
@@ -60,7 +58,7 @@ export default function PropsDetail() {
             })
           }
         >
-          <img src={Minus} alt="Remove prop" />
+          <Minus />
         </Button>
       </div>
     ));

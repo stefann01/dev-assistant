@@ -8,9 +8,19 @@ interface ButtonProps {
   style?: React.CSSProperties;
 }
 
-export default function Button({ children, onClick, style }: ButtonProps) {
+export default function Button({
+  children,
+  onClick,
+  style,
+  disabled,
+}: ButtonProps) {
   return (
-    <button onClick={onClick} className={styles.btn} style={{ ...style }}>
+    <button
+      onClick={onClick}
+      className={styles.btn}
+      style={{ ...style }}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

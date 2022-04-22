@@ -3,6 +3,7 @@ import styles from "./SectionTitle.module.scss";
 import { ReactComponent as Plus } from "../../assets/svg/Plus.svg";
 import { ReactComponent as OpenedEye } from "../../assets/svg/opened_eye.svg";
 import { ReactComponent as ClosedEye } from "../../assets/svg/closed_eye.svg";
+import Button from "../Button/Button";
 
 interface SectionTitleProps {
   onButtonClick: () => void;
@@ -24,13 +25,18 @@ export default function SectionTitle({
           {isShow ? <OpenedEye /> : <ClosedEye />}
         </button>
       )}
-      <button
-        style={{ marginLeft: onShowHide ? "0px" : "auto" }}
-        className={styles.button}
+
+      <Button
+        style={{
+          marginLeft: onShowHide ? "0px" : "auto",
+          width: "32px",
+          height: "32px",
+        }}
         onClick={onButtonClick}
+        disabled={!isShow}
       >
         <Plus />
-      </button>
+      </Button>
     </div>
   );
 }

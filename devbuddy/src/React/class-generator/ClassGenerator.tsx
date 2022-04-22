@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ReactComponentTestTemplate } from "../../CodeTemplates/CodeTemplates";
 import { ReactComponentTemplate } from "../../CodeTemplates/ReactComponentTemplate";
 import { useReactComponent } from "../../contexts/ReactComponentContext";
-import { capitalize } from "../../helper/helper";
+import { getValidComponentName } from "../../helper/helper";
 import styles from "./ClassGenerator.module.scss";
 import Tab from "../../components/Tab/Tab";
 
@@ -17,26 +17,27 @@ export default function ClassGenerator() {
   const [activeTab, setActiveTab] = useState<"component" | "style" | "test">(
     "component"
   );
+  const validatedName = getValidComponentName(name);
   return (
     <div className={styles.container}>
       <div className={styles.tabContainer}>
         <Tab
           onClick={() => setActiveTab("component")}
-          title={(capitalize(name) || "MyComponent") + ".tsx"}
+          title={validatedName + ".tsx"}
           isActive={activeTab === "component"}
           logo={<ReactLogo />}
         />
 
         <Tab
           onClick={() => setActiveTab("style")}
-          title={`${name}.${isStyleModule ? "module." : ""}${cssMode}`}
+          title={`${validatedName}.${isStyleModule ? "module." : ""}${cssMode}`}
           isActive={activeTab === "style"}
           logo={cssMode === "scss" ? <SassLogo /> : <CssLogo />}
         />
 
         <Tab
           onClick={() => setActiveTab("test")}
-          title={`${name}.test.tsx`}
+          title={`${validatedName}.test.tsx`}
           isActive={activeTab === "test"}
           logo={<UnitTestLogo />}
         />
@@ -47,7 +48,7 @@ export default function ClassGenerator() {
             <pre>
               <code>
                 {ReactComponentTemplate({
-                  name,
+                  name: validatedName,
                   props,
                   states,
                   effects,
@@ -64,7 +65,7 @@ export default function ClassGenerator() {
             <pre>
               <code>
                 {ReactComponentTestTemplate({
-                  name,
+                  name: validatedName,
                   props,
                 })}
               </code>
