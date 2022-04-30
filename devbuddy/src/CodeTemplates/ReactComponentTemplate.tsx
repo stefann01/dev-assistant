@@ -1,7 +1,11 @@
 import prettier from "prettier/standalone";
 import babel from "prettier/parser-babel";
 import typescript from "prettier/parser-typescript";
-import { getValidTypeName, getValidVariableName } from "../helper/helper";
+import {
+  getValidDefaultValue,
+  getValidTypeName,
+  getValidVariableName,
+} from "../helper/helper";
 
 const getReactImports = ({ hasEffects, hasStates }: any) => {
   let hooks: string[] = [
@@ -76,7 +80,11 @@ export const ReactComponentTemplate = ({
       ? states
           .map(
             (state: any) =>
-              `const [${state.name}, set${state.name}] = useState(${state.defaultValue});`
+              `const [${getValidVariableName(
+                state.name
+              )}, set${getValidVariableName(
+                state.name
+              )}] = useState(${getValidDefaultValue(state.defaultValue)});`
           )
           .join("")
       : ""

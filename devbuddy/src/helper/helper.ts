@@ -125,3 +125,35 @@ export const getValidTypeName = (name: string) => {
     ? name
     : DEFAULT_PROP_TYPE;
 };
+
+export const getValidDefaultValue = (value: any) => {
+  if (!value) {
+    return "";
+  }
+  if (Number(value)) {
+    return value;
+  }
+  if (typeof value === "boolean") {
+    return value;
+  }
+
+  try {
+    return JSON.stringify(JSON.parse(value));
+  } catch (e) {
+    if (typeof value === "string") {
+      return `\`${value}\``;
+    }
+    return "";
+  }
+};
+
+export const isValidObjectPropertyOrProperty = (str: string) => {
+  const matches = str.match(
+    /(([a-zA-Z0-9_$])+(\.{1})?)*([a-zA-Z_$])+([0-9]*)/g
+  );
+  return matches && matches.length === 1 && matches[0] === str;
+};
+
+export const isValidDependencyArrayItem = (str: string) => {
+  return isValidObjectPropertyOrProperty(str) && !isReservedKeyWord(str);
+};
