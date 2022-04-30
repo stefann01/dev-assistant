@@ -9,22 +9,27 @@ import styles from "../component-detail/ComponentDetail.module.scss";
 import Minus from "../../assets/svg/minus.svg";
 import Plus from "../../assets/svg/Plus.svg";
 import Button from "../../components/Button/Button";
+import { isValidDependencyArrayItem } from "../../helper/helper";
 
 export default function EffectsDetail() {
   const { effects, areEffectsVisible, dispatch } = useReactComponent();
-  const [newDependencyItem, setNewDependencyItem] = React.useState({
-    index: 0,
-    value: "",
-  });
+  const [newDependencyItems, setNewDependencyItems] = React.useState([
+    {
+      index: 0,
+      value: "",
+    },
+  ]);
 
   const items = useMemo(() => {
     const addDependency = (index: number) => {
-      if (newDependencyItem.value.length === 0) return;
-      dispatch({
-        type: ReactComponentActions.ADD_EFFECT_DEPENDENCY,
-        payload: { dependency: newDependencyItem.value, index },
-      });
-      setNewDependencyItem({ index: 0, value: "" });
+      if (newDependencyItems[index].value.length === 0) return;
+      if (isValidDependencyArrayItem(newDependencyItems[index].value)) {
+        dispatch({
+          type: ReactComponentActions.ADD_EFFECT_DEPENDENCY,
+          payload: { dependency: newDependencyItems[index].value, index },
+        });
+        setNewDependencyItems([...newDependencyItems, { index: 0, value: "" }]);
+      }
     };
 
     return effects.map((effect, index) => (
@@ -74,59 +79,62 @@ export default function EffectsDetail() {
             <div className={styles.effectsSwitchRow}>
               <div style={{ marginRight: "10px" }}>
                 <Input
-                  value={newDependencyItem.value}
-                  onChange={(e) =>
-                    setNewDependencyItem({ index, value: e.target.value })
-                  }
+                  value={newDependencyItems[index].value}
+                  onChange={(e) => {
+                    const items = [...newDependencyItems];
+                    items[index].value = e.target.value;
+                    setNewDependencyItems(items);
+                  }}
                 />
               </div>
               <Button
                 onClick={() => addDependency(index)}
-                disabled={newDependencyItem.value.length === 0}
+                disabled={newDependencyItems[index].value.length === 0}
               >
                 <img src={Plus} alt="Remove prop" />
               </Button>
             </div>
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-start",
-                marginBottom: "10px",
-              }}
-            >
-              {effect.depArray.map((dep, depIndex) => (
-                <Chip
-                  key={depIndex}
-                  label={dep}
-                  onClick={() => {
-                    setNewDependencyItem({ index, value: dep });
-                  }}
-                  onDelete={() =>
-                    dispatch({
-                      type: ReactComponentActions.REMOVE_DEP_ARRAY_ITEM,
-                      payload: { depIndex, index },
-                    })
-                  }
-                />
-              ))}
-            </div>
+            {effect.depArray.length > 0 && (
+              <div className={styles.chipsContainer}>
+                {effect.depArray.map((dep, depIndex) => (
+                  <Chip
+                    key={depIndex}
+                    label={dep}
+                    onClick={() => {
+                      const items = [...newDependencyItems];
+                      items[index].value = dep;
+                      setNewDependencyItems(items);
+                    }}
+                    onDelete={() =>
+                      dispatch({
+                        type: ReactComponentActions.REMOVE_DEP_ARRAY_ITEM,
+                        payload: { depIndex, index },
+                      })
+                    }
+                  />
+                ))}
+              </div>
+            )}
           </>
         )}
 
         <div className={styles.divider}></div>
       </div>
     ));
-  }, [effects, newDependencyItem.value, dispatch]);
+  }, [effects, newDependencyItems, dispatch]);
 
   return (
     <>
       <SectionTitle
         title={"Effects"}
-        onButtonClick={() =>
-          dispatch({ type: ReactComponentActions.ADD_EFFECT })
-        }
+        onButtonClick={() => {
+          dispatch({ type: ReactComponentActions.ADD_EFFECT });
+          setNewDependencyItems([
+            ...newDependencyItems,
+            { index: newDependencyItems.length, value: "" },
+          ]);
+        }}
         onShowHide={() => {
           dispatch({
             type: ReactComponentActions.TOGGLE_SECTION_VISIBILITY,

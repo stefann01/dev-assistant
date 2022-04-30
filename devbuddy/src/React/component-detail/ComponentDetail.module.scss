@@ -118,6 +118,8 @@
   width: 100%;
   align-items: center;
   margin-bottom: $mb-16;
+  animation: 1.2s ease 0s show;
+  transition: all 0.8s ease;
 }
 
 .effectsSwitchRow > p {
@@ -128,4 +130,29 @@
 .divider {
   width: stretch;
   border-top: 1px solid black;
+}
+
+.chipsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  overflow-x: auto;
+}
+
+.chipsContainer {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.chipsContainer::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

@@ -1,3 +1,4 @@
+@import "../../variables.scss";
 .container {
   display: flex;
   flex-direction: row;
@@ -6,13 +7,22 @@
   width: auto;
   height: 18px;
   border-radius: 100px;
-  background: green;
+  background: $sass;
   padding: 5px;
   cursor: pointer;
 }
 
+.container:not(:last-child) {
+  margin-right: 10px;
+}
+
 .container:hover {
-  background: #00a8ff;
+  background: $primary;
+}
+
+.container:hover > .chipRemoveBtn {
+  background: #a6a6a6;
+  border: 1px solid #a6a6a6;
 }
 
 .chipRemoveBtn {
@@ -26,17 +36,14 @@
   margin-right: 5px;
   padding: 2px;
   cursor: pointer;
-  background: #fff;
-}
-
-.chipRemoveBtn:hover {
-  background: #e0e0e0;
+  background: $white;
+  color: $black;
 }
 
 .label {
   font-size: 12px;
   font-weight: bold;
-  color: #fff;
+  color: $white;
   line-height: normal;
   margin: 0;
 }

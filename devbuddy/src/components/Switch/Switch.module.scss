@@ -1,28 +1,31 @@
+@import "../../variables.scss";
 .container {
   width: 100%;
   border-radius: 100px;
   position: relative;
   height: 32px;
-  background-color: aqua;
+  background-color: $primary;
   padding: 5px;
+  cursor: pointer;
 }
 
 .switchToggle {
-  background-color: white;
+  background-color: $white;
   border-radius: 50%;
   width: 16px;
   height: 16px;
   top: 50%;
   transform: translateY(-50%);
   position: absolute;
+  transition: left 0.8s ease;
 }
 
 .switchLeft {
   margin-left: 5px;
-  left: 0;
+  left: 0%;
 }
 
 .switchRight {
   margin-right: 5px;
-  right: 0;
+  left: calc(100% - 16px - 5px);
 }

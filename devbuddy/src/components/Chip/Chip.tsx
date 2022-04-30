@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Chip.module.scss";
+import { ReactComponent as Close } from "../../assets/svg/close.svg";
 
 interface ChipProps {
   label: string;
@@ -16,7 +17,7 @@ export default function Chip({ label, onClick, onDelete }: ChipProps) {
           onDelete && onDelete();
         }}
       >
-        X
+        <Close />
       </div>
       <p className={styles.label}>{label}</p>
     </div>
