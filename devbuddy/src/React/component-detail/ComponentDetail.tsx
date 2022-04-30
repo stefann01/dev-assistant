@@ -40,6 +40,8 @@ export default function ComponentDetail({ style }: ComponentDetailProps) {
 
       <div className={styles.styleLine}>
         <Toggle
+          firstLabel="CSS"
+          secondLabel="SCSS"
           style={{ width: "50%" }}
           isActive={cssMode === "scss"}
           onChange={() =>

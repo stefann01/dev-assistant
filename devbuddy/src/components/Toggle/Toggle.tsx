@@ -5,8 +5,16 @@ interface ToggleProps {
   isActive: boolean;
   onChange: () => void;
   style?: any;
+  firstLabel?: string;
+  secondLabel?: string;
 }
-export default function Toggle({ isActive, onChange, style }: ToggleProps) {
+export default function Toggle({
+  isActive,
+  onChange,
+  style,
+  firstLabel,
+  secondLabel,
+}: ToggleProps) {
   return (
     <div
       style={style}
@@ -20,8 +28,8 @@ export default function Toggle({ isActive, onChange, style }: ToggleProps) {
           isActive ? styles.toggleRight : styles.toggleLeft
         }`}
       ></div>
-      <p className={styles.leftText}>CSS</p>
-      <p className={styles.rightText}>SCSS</p>
+      <p className={styles.leftText}>{firstLabel}</p>
+      <p className={styles.rightText}>{secondLabel}</p>
     </div>
   );
 }
