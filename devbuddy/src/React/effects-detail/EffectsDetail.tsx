@@ -17,6 +17,7 @@ export default function EffectsDetail() {
     {
       index: 0,
       value: "",
+      status: "default" as "default" | "success" | "error",
     },
   ]);
 
@@ -28,7 +29,10 @@ export default function EffectsDetail() {
           type: ReactComponentActions.ADD_EFFECT_DEPENDENCY,
           payload: { dependency: newDependencyItems[index].value, index },
         });
-        setNewDependencyItems([...newDependencyItems, { index: 0, value: "" }]);
+        setNewDependencyItems([
+          ...newDependencyItems,
+          { index: 0, value: "", status: "default" },
+        ]);
       }
     };
 
@@ -79,17 +83,36 @@ export default function EffectsDetail() {
             <div className={styles.effectsSwitchRow}>
               <div style={{ marginRight: "10px" }}>
                 <Input
+                  status={newDependencyItems[0].status}
                   value={newDependencyItems[index].value}
+                  onClear={() => {
+                    const items = [...newDependencyItems];
+                    items[index].value = "";
+                    items[index].status = "default";
+                    setNewDependencyItems(items);
+                  }}
                   onChange={(e) => {
                     const items = [...newDependencyItems];
                     items[index].value = e.target.value;
+                    if (
+                      isValidDependencyArrayItem(e.target.value) ||
+                      e.target.value.length === 0
+                    ) {
+                      items[index].status = "default";
+                    } else {
+                      items[index].status = "error";
+                    }
                     setNewDependencyItems(items);
                   }}
                 />
               </div>
               <Button
                 onClick={() => addDependency(index)}
-                disabled={newDependencyItems[index].value.length === 0}
+                disabled={
+                  !isValidDependencyArrayItem(
+                    newDependencyItems[index].value
+                  ) || newDependencyItems[index].value.length === 0
+                }
               >
                 <img src={Plus} alt="Remove prop" />
               </Button>
@@ -132,7 +155,7 @@ export default function EffectsDetail() {
           dispatch({ type: ReactComponentActions.ADD_EFFECT });
           setNewDependencyItems([
             ...newDependencyItems,
-            { index: newDependencyItems.length, value: "" },
+            { index: newDependencyItems.length, value: "", status: "default" },
           ]);
         }}
         onShowHide={() => {
