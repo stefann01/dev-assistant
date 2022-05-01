@@ -1,16 +1,59 @@
 @import "../../variables.scss";
 
+.inputContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(30px + #{2 * $input-border-width});
+  border-radius: 5px;
+}
+
+.defaultInput {
+  background: linear-gradient(93.49deg, #cc6699 0.36%, #264de4 98.58%);
+}
+
+.errorInput {
+  background: $error;
+}
+
+.successInput {
+  background: $success;
+}
+
 .input {
   height: 30px;
   outline: none;
-  border-radius: 4px;
-  width: 100%;
-  padding: 0;
+  border-radius: 3px;
+  width: calc(100% - #{$input-border-width * 2} - 3px);
+  padding: 0px 0px 0px 3px;
   border: none;
 }
 
-input:focus {
-  box-shadow: 0 0 0 0.2rem linear-gradient(135deg, #cc6699, #264de4);
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
-    box-shadow 0.2s;
+.errorIcon {
+  position: absolute;
+  top: 50%;
+  right: calc(0% + 8px);
+  transform: translate(0%, -50%);
+  width: 16px;
+  height: 16px;
+  color: $error;
+  display: flex;
+}
+
+.clearIcon {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  width: 16px;
+  height: 16px;
+  color: $black;
+}
+
+.clearIcon:hover {
+  color: $sass;
+  cursor: pointer;
+  fill: $sass;
 }
