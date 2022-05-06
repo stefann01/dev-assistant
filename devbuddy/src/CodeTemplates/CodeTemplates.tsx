@@ -2,7 +2,11 @@ import Property from "../Models/Properties.model";
 import prettier from "prettier/standalone";
 import babel from "prettier/parser-babel";
 import typescript from "prettier/parser-typescript";
-import { capitalize, getValidVariableName } from "../helper/helper";
+import {
+  capitalize,
+  getValidTypeName,
+  getValidVariableName,
+} from "../helper/helper";
 
 export type TSTemplateType = {
   entityName?: string;
@@ -13,7 +17,7 @@ export type TSTemplateType = {
 // Read this for builder: https://stackoverflow.com/questions/4313172/builder-design-pattern-why-do-we-need-a-director#:~:text=The%20StringBuilder%20class%20in%20the,does%20not%20include%20a%20director.
 
 export const TSTemplate = ({
-  entityName: clasName,
+  entityName,
   properties,
   entityType,
 }: TSTemplateType) => {
@@ -25,48 +29,53 @@ export const TSTemplate = ({
     (prop) => !prop.isStatic && !prop.isFunction
   );
   return prettier.format(
-    `class ${clasName} { 
+    `class ${entityName || "MyEntity"} { 
         ${staticFields
           .map(
             (field) =>
-              `${field.access} static ${field.isReadonly ? "readonly" : ""} ${
-                field.name
-              }:${field.type} = ${field.defaultValue}'' \n`
+              `${field.access} static ${
+                field.isReadonly ? "readonly" : ""
+              } ${getValidVariableName(field.name)}:${getValidTypeName(
+                field.type
+              )} = ${field.defaultValue}'' \n`
           )
           .join("")}
         constructor(${normalFields
           .map(
             (prop, index) =>
-              `${prop.access} ${prop.isReadonly ? "readonly " : ""}${
-                prop.name
-              }:${prop.type} ${index < properties.length - 1 ? "," : ""}  
+              `${prop.access} ${
+                prop.isReadonly ? "readonly " : ""
+              }${getValidVariableName(prop.name)}:${getValidTypeName(
+                prop.type
+              )} ${index < properties.length - 1 ? "," : ""}  
           `
           )
           .join("")}) { }
 
           ${
-            entityType &&
-            entityType === "builder" &&
-            normalFields
-              .filter((field) => !field.isStatic || !field.isFunction)
-              .map(
-                (field) =>
-                  `set${capitalize(field.name)}(${field.name}:${
-                    field.type
-                  }){this.${field.name} = ${field.name}; return this;} \n 
-                  get${capitalize(field.name)}(): ${field.type}{ return this.${
-                    field.name
-                  }}`
-              )
-              .join("")
+            entityType && entityType === "builder"
+              ? normalFields
+                  .filter((field) => !field.isStatic || !field.isFunction)
+                  .map((field) => {
+                    const validFieldName = getValidVariableName(field.name);
+                    const validFieldType = getValidTypeName(field.type);
+                    return `set${capitalize(
+                      validFieldName
+                    )}(${validFieldName}:${validFieldType}){this.${validFieldName} = ${validFieldName}; return this;} \n 
+                      get${capitalize(
+                        validFieldName
+                      )}(): ${validFieldType}{ return this.${validFieldName}}`;
+                  })
+                  .join("")
+              : ""
           }
 
       ${functions
         .map(
           (func) =>
-            `${func.access} ${func.isStatic ? "static" : ""} ${
-              func.name
-            }(){} \n`
+            `${func.access} ${
+              func.isStatic ? "static" : ""
+            } ${getValidVariableName(func.name)}(){} \n`
         )
         .join("")}
 }`,
@@ -88,7 +97,9 @@ export const TSInterfaceTemplate = ({
     ${normalFields
       .map(
         (prop) =>
-          `${prop.isReadonly ? "readonly" : ""} ${prop.name}:${prop.type},  
+          `${prop.isReadonly ? "readonly" : ""} ${getValidVariableName(
+            prop.name
+          )}:${getValidTypeName(prop.type)},  
           `
       )
       .join("")} \n

@@ -5,12 +5,14 @@ interface AutocompleteProps {
   options: string[];
   onChange: (value: string) => void;
   value: string;
+  style?: React.CSSProperties;
 }
 
 export default function Autocomplete({
   options,
   onChange,
   value,
+  style,
 }: AutocompleteProps) {
   const [isOpen, setIsOpen] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
@@ -32,7 +34,7 @@ export default function Autocomplete({
   };
 
   return (
-    <div ref={listRef}>
+    <div ref={listRef} style={style}>
       <span>
         <Input
           type="text"

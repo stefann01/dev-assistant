@@ -9,8 +9,3 @@ export default class Property {
     public access: "public" | "private" | "protected" = "public"
   ) {}
 }
-
-interface Test {
-  readonly x: number;
-  nameFunc(): void;
-}

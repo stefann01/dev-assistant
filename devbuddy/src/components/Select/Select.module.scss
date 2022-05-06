@@ -1,0 +1,42 @@
+@import "../../variables.scss";
+.shutter {
+  width: 100%;
+  height: 32px;
+  border-radius: 4px;
+  background-color: $white;
+  position: relative;
+  color: $black;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.options {
+  position: absolute;
+  top: 34px;
+  left: 0;
+  width: 100%;
+  background-color: $white;
+  border-radius: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 999;
+  border: 1px solid $black;
+}
+
+.option {
+  cursor: pointer;
+  color: $black;
+  padding-left: 10px;
+  height: 32px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.option:hover {
+  background: $hover;
+  color: $white;
+}

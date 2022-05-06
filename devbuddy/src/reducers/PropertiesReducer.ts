@@ -5,7 +5,8 @@ enum PropertiesReducerActions {
   ADD_PROPERTY,
   REMOVE_PROPERTY,
   EDIT_PROPERTY,
-  CHANGE_ENTITY,
+  CHANGE_ENTITY_TYPE,
+  CHANGE_ENTITY_NAME,
 }
 
 type PropertiesReducerState = {
@@ -49,10 +50,16 @@ export function PropertiesReducer(
         ),
       };
     }
-    case PropertiesReducerActions.CHANGE_ENTITY: {
+    case PropertiesReducerActions.CHANGE_ENTITY_TYPE: {
       return {
         ...state,
         entityType: action.payload.entityType,
+      };
+    }
+    case PropertiesReducerActions.CHANGE_ENTITY_NAME: {
+      return {
+        ...state,
+        entityName: action.payload.entityName,
       };
     }
     default:

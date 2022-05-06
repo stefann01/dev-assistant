@@ -9,6 +9,7 @@ import {
 type PropertiesContextType = {
   properties: Property[];
   entityType: "class" | "interface" | "builder";
+  entityName: string;
   dispatch: React.Dispatch<Action<PropertiesReducerActions, any>>;
 };
 
@@ -25,6 +26,7 @@ export default function PropertiesProvider(props: any) {
       value={{
         properties: state.properties,
         entityType: state.entityType,
+        entityName: state.entityName,
         dispatch,
       }}
     >

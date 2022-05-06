@@ -4,8 +4,21 @@ import { useProperties } from "../contexts/PropertiesContext";
 import { PropertiesReducerActions } from "../reducers/PropertiesReducer";
 import Property from "../Models/Properties.model";
 import SectionTitle from "../components/SectionTitle/SectionTitle";
+import Button from "../components/Button/Button";
+import Input from "../components/Input/Input";
+import Select from "../components/Select/select";
+import { ReactComponent as MinusIcon } from "../assets/svg/minus.svg";
+import Divider from "../components/Divider/Divider";
+import Autocomplete from "../components/Autocomplete/Autocomplete";
+import { ReactComponent as FunctionIcon } from "../assets/svg/Function.svg";
+import { ReactComponent as NonFunctionIcon } from "../assets/svg/NonFunction.svg";
+import { ReactComponent as StaticIcon } from "../assets/svg/Static.svg";
+import { ReactComponent as NonStaticIcon } from "../assets/svg/NonStatic.svg";
+import { ReactComponent as Readonly } from "../assets/svg/Readonly.svg";
+import { ReactComponent as NonReadonly } from "../assets/svg/NonReadonly.svg";
+
 export default function PropertiesPanel() {
-  const { dispatch, properties, entityType } = useProperties();
+  const { dispatch, properties, entityType, entityName } = useProperties();
 
   const addProperty = () =>
     dispatch({ type: PropertiesReducerActions.ADD_PROPERTY });
@@ -22,108 +35,125 @@ export default function PropertiesPanel() {
       payload: { index, newProperty },
     });
 
+  const changeEntityName = (name: string) => {
+    dispatch({
+      type: PropertiesReducerActions.CHANGE_ENTITY_NAME,
+      payload: { entityName: name },
+    });
+  };
+
   return (
     <div className={styles.container}>
       <SectionTitle title="Properties" onButtonClick={addProperty} />
+
       <div className={styles.body}>
+        <div style={{ marginTop: "10px" }}>
+          <label className={styles.entityLabel}>Entity Name</label>
+          <Input
+            style={{ marginTop: "5px" }}
+            onChange={(e) => changeEntityName(e.target.value)}
+            value={entityName}
+          />
+        </div>
+        <Divider style={{ marginTop: "16px" }} />
+
         {properties &&
           properties.map((prop, index) => (
             <div className={styles.propValuesContainer} key={index}>
-              <button
-                className={styles.removeBtn}
-                onClick={() =>
-                  editProperty(index, { ...prop, isFunction: !prop.isFunction })
-                }
-              >
-                {prop.isFunction ? (
-                  "f"
-                ) : (
-                  <span style={{ textDecoration: "line-through" }}>f</span>
-                )}
-              </button>
-
-              {entityType !== "interface" && (
-                <button
-                  className={styles.removeBtn}
+              <div className={styles.propValuesContainerRow}>
+                <Button
+                  style={{ width: "32px", height: "32px", marginRight: "8px" }}
                   onClick={() =>
-                    editProperty(index, { ...prop, isStatic: !prop.isStatic })
-                  }
-                >
-                  {prop.isStatic ? (
-                    "S"
-                  ) : (
-                    <span style={{ textDecoration: "line-through" }}>S</span>
-                  )}
-                </button>
-              )}
-
-              <button
-                className={styles.removeBtn}
-                disabled={prop.isFunction}
-                onClick={() =>
-                  editProperty(index, { ...prop, isReadonly: !prop.isReadonly })
-                }
-              >
-                {prop.isReadonly ? (
-                  "R"
-                ) : (
-                  <span
-                    style={{
-                      textDecoration: !prop.isReadonly
-                        ? "line-through"
-                        : "none",
-                    }}
-                  >
-                    R
-                  </span>
-                )}
-              </button>
-
-              {entityType !== "interface" && (
-                <select
-                  value={prop.access}
-                  onChange={(e) =>
                     editProperty(index, {
                       ...prop,
-                      access: e.target.value as
-                        | "public"
-                        | "private"
-                        | "protected",
+                      isFunction: !prop.isFunction,
                     })
                   }
                 >
-                  <option value={"public"}>public</option>
-                  <option value={"protected"}>protected</option>
-                  <option value={"private"}>private</option>
-                </select>
-              )}
+                  {prop.isFunction ? <FunctionIcon /> : <NonFunctionIcon />}
+                </Button>
 
-              <input
-                className={styles.propertyElement}
-                value={prop.name}
-                onChange={(e) =>
-                  editProperty(index, {
-                    ...prop,
-                    name: e.target.value.replace(/\s/g, ""),
-                  })
-                }
-              />
-              <input
-                className={styles.propertyElement}
-                value={prop.type}
-                onChange={(e) =>
-                  editProperty(index, {
-                    ...prop,
-                    type: e.target.value.replace(/\s/g, ""),
-                  })
-                }
-              />
-              <button
-                className={styles.removeBtn}
-                onClick={() => removeProperty(index)}
-              >
-                -
-              </button>
+                {entityType !== "interface" && (
+                  <Button
+                    style={{
+                      width: "32px",
+                      height: "32px",
+                      marginRight: "8px",
+                    }}
+                    onClick={() =>
+                      editProperty(index, { ...prop, isStatic: !prop.isStatic })
+                    }
+                  >
+                    {prop.isStatic ? <StaticIcon /> : <NonStaticIcon />}
+                  </Button>
+                )}
+
+                <Button
+                  style={{ width: "32px", height: "32px", marginRight: "8px" }}
+                  disabled={prop.isFunction}
+                  onClick={() =>
+                    editProperty(index, {
+                      ...prop,
+                      isReadonly: !prop.isReadonly,
+                    })
+                  }
+                >
+                  {prop.isReadonly ? <Readonly /> : <NonReadonly />}
+                </Button>
+
+                {entityType !== "interface" && (
+                  <>
+                    <Select
+                      options={["private", "public", "protected"]}
+                      placeholder="Select an access modifier"
+                      value={prop.access}
+                      onChange={(option) =>
+                        editProperty(index, {
+                          ...prop,
+                          access: option,
+                        })
+                      }
+                    ></Select>
+                  </>
+                )}
+              </div>
+              <div className={styles.propValuesContainerRow}>
+                <Input
+                  style={{ marginRight: "8px" }}
+                  value={prop.name}
+                  onChange={(e) =>
+                    editProperty(index, {
+                      ...prop,
+                      name: e.target.value.replace(/\s/g, ""),
+                    })
+                  }
+                />
+                <Autocomplete
+                  value={prop.type}
+                  style={{
+                    marginRight: "8px",
+                    position: "relative",
+                    width: "100%",
+                  }}
+                  options={["string", "number", "boolean", "any"]}
+                  onChange={(value) =>
+                    editProperty(index, {
+                      ...prop,
+                      type: value.replace(/\s/g, ""),
+                    })
+                  }
+                />
+                <Button
+                  style={{
+                    width: "32px",
+                    height: "32px",
+                  }}
+                  onClick={() => removeProperty(index)}
+                >
+                  <MinusIcon />
+                </Button>
+              </div>
+              <Divider style={{ marginTop: "16px" }} />
             </div>
           ))}
       </div>

@@ -31,7 +31,6 @@ export default function SideBar() {
           onClick={() => navigate("/color-convertor")}
         />
         <NavItem title="Rems & pixels" />
-        <NavItem title="JSON converter" />
         <NavItem title="Date formatter" />
       </div>
 
@@ -41,6 +40,10 @@ export default function SideBar() {
         <NavItem title="Gradient generator" />
         <NavItem title="Radius generator" />
         <NavItem title="Shadow generator" />
+        <NavItem
+          title="Animation generator"
+          onClick={() => navigate("/animation-generator")}
+        />
       </div>
 
       <NavSectionTitle title="REACT" />
