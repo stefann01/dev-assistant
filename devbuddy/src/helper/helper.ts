@@ -114,9 +114,11 @@ export const getValidComponentName = (name: string) => {
     : DEFAULT_COMPONENT_NAME;
 };
 
-export const getValidVariableName = (name: string) => {
+export const getValidVariableName = (name: string, defaultName?: string) => {
   return isValidVariableName(name) && !isReservedKeyWord(name)
     ? name
+    : defaultName
+    ? defaultName
     : DEFAULT_PROP_NAME;
 };
 
@@ -156,4 +158,8 @@ export const isValidObjectPropertyOrProperty = (str: string) => {
 
 export const isValidDependencyArrayItem = (str: string) => {
   return isValidObjectPropertyOrProperty(str) && !isReservedKeyWord(str);
+};
+
+export const colorParagraph = (str: string) => {
+  return `<p style="color: #00ff00;">${str}</p>`;
 };

@@ -83,6 +83,7 @@ export default function EffectsDetail() {
             <div className={styles.effectsSwitchRow}>
               <div style={{ marginRight: "10px" }}>
                 <Input
+                  showClearIcon
                   status={newDependencyItems[0].status}
                   value={newDependencyItems[index].value}
                   onClear={() => {

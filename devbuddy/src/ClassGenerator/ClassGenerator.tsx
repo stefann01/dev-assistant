@@ -1,4 +1,5 @@
 import React from "react";
+import Checkbox from "../components/Checkbox/Checkbox";
 import CodeTextarea from "../components/CodeTextarea/CodeTextarea";
 import { useProperties } from "../contexts/PropertiesContext";
 import PropertiesPanel from "../PropertiesPanel/PropertiesPanel";
@@ -8,9 +9,9 @@ import styles from "./ClassGenerator.module.scss";
 export default function ClassGenerator() {
   const { entityType, dispatch } = useProperties();
 
-  const changeEntity = (entity: "interface" | "class" | "builder") => {
+  const changeEntityType = (entity: "interface" | "class" | "builder") => {
     dispatch({
-      type: PropertiesReducerActions.CHANGE_ENTITY,
+      type: PropertiesReducerActions.CHANGE_ENTITY_TYPE,
       payload: { entityType: entity },
     });
   };
@@ -23,31 +24,28 @@ export default function ClassGenerator() {
       <div className={styles.content}>
         <div className={styles.leftSide}>
           <div className={styles.checkboxesContainer}>
-            <input
-              type="checkbox"
+            <Checkbox
               value="Class"
               checked={entityType === "class"}
-              onChange={() => changeEntity("class")}
+              onChange={() => changeEntityType("class")}
+              label={"Class"}
             />
-            <label>Class</label>
 
-            <input
-              type="checkbox"
+            <Checkbox
               value="Interface"
               checked={entityType === "interface"}
-              onChange={() => changeEntity("interface")}
+              onChange={() => changeEntityType("interface")}
+              label={"Interface"}
             />
-            <label>Interface</label>
 
-            <input
-              type="checkbox"
+            <Checkbox
               value="Builder"
               checked={entityType === "builder"}
-              onChange={() => changeEntity("builder")}
+              onChange={() => changeEntityType("builder")}
+              label={"Builder"}
             />
-            <label>Builder</label>
           </div>
-          <div style={{ height: "100%", width: "100%" }}>
+          <div className={styles.propertyPanelContainer}>
             <PropertiesPanel />
           </div>
         </div>

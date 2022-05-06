@@ -35,10 +35,35 @@ function App() {
                     <Route path="" element={<ClassGenerator />} />
                   </Route>
                   <Route path="/color-convertor" element={<PrivateRoute />}>
-                    <Route path="" element={<p>Color convertor</p>} />
+                    <Route
+                      path=""
+                      element={
+                        <a
+                          href="https://stefann01.github.io/css-unit-converter/"
+                          target={"_blank"}
+                          rel="noreferrer"
+                        >
+                          Color convertor
+                        </a>
+                      }
+                    />
                   </Route>
                   <Route path="/react-component" element={<PrivateRoute />}>
                     <Route path="" element={<ReactComponentGenerator />} />
+                  </Route>
+                  <Route path="/animation-generator" element={<PrivateRoute />}>
+                    <Route
+                      path=""
+                      element={
+                        <a
+                          href="https://angrytools.com/css/animation"
+                          target={"_blank"}
+                          rel="noreferrer"
+                        >
+                          https://angrytools.com/css/animation/
+                        </a>
+                      }
+                    />
                   </Route>
                   <Route
                     path="/login"

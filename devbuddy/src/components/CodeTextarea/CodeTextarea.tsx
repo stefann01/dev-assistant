@@ -4,28 +4,35 @@ import {
   TSTemplate,
 } from "../../CodeTemplates/CodeTemplates";
 import { useProperties } from "../../contexts/PropertiesContext";
+import Button from "../Button/Button";
 import styles from "./CodeTextarea.module.scss";
+import { ReactComponent as CodeDownloadIcon } from "../../assets/svg/code-download.svg";
+import { getValidVariableName } from "../../helper/helper";
+import { DEFAULT_ENTITY_NAME } from "../../helper/constants";
 
 export default function CodeTextarea() {
-  const { properties, entityType } = useProperties();
+  const { properties, entityType, entityName } = useProperties();
 
   const displayedCode = useMemo(() => {
     if (entityType === "class" || entityType === "builder")
       return TSTemplate({
-        entityName: "MyClassname", //TODO: This should be replaced with the name of the entity onced added into the context.
+        entityName: getValidVariableName(entityName, DEFAULT_ENTITY_NAME),
         properties,
         entityType,
       });
     if (entityType === "interface")
-      return TSInterfaceTemplate({ entityName: "MyInterface", properties }); //TODO: This should be replaced with the name of the entity onced added into the context.
+      return TSInterfaceTemplate({
+        entityName: getValidVariableName(entityName, DEFAULT_ENTITY_NAME),
+        properties,
+      });
     return "";
-  }, [entityType, properties]);
+  }, [entityName, entityType, properties]);
 
   const downloadFile = () => {
     const element = document.createElement("a");
     const file = new Blob([displayedCode], { type: "text/plain" });
     element.href = URL.createObjectURL(file);
-    element.download = `EntityName.ts`; //TODO: This should be replaced with the name of the entity onced added into the context.
+    element.download = getValidVariableName(entityName, DEFAULT_ENTITY_NAME);
     document.body.appendChild(element); // Required for this to work in FireFox
     element.click();
     element.remove();
@@ -34,9 +41,9 @@ export default function CodeTextarea() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <button className={styles.downloadButton} onClick={downloadFile}>
-          D
-        </button>
+        <Button onClick={downloadFile} style={{ marginLeft: "10px" }}>
+          <CodeDownloadIcon />
+        </Button>
       </div>
       <div className={styles.content}>
         <blockquote>

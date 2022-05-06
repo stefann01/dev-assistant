@@ -11,6 +11,8 @@ interface InputProps {
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onClear?: () => void;
   status?: "default" | "success" | "error";
+  showClearIcon?: boolean;
+  style?: React.CSSProperties;
 }
 export default function Input({
   value,
@@ -20,6 +22,8 @@ export default function Input({
   onBlur,
   onClear,
   status = "default",
+  showClearIcon = false,
+  style,
 }: InputProps) {
   const ref = React.useRef<HTMLInputElement>(null);
   const statusStyle = React.useMemo(() => {
@@ -43,7 +47,7 @@ export default function Input({
   };
 
   return (
-    <div className={`${styles.inputContainer} ${statusStyle}`}>
+    <div className={`${styles.inputContainer} ${statusStyle}`} style={style}>
       <input
         ref={ref}
         spellCheck={true}
@@ -54,7 +58,7 @@ export default function Input({
         onBlur={onBlur}
         className={styles.input}
       />
-      {status === "error" && (
+      {showClearIcon && status === "error" && (
         <div className={styles.errorIcon}>
           <div style={{ display: "flex", position: "relative" }}>
             <CloseIcon
@@ -69,7 +73,7 @@ export default function Input({
           </div>
         </div>
       )}
-      {status === "default" && value.length > 0 && (
+      {showClearIcon && status === "default" && value.length > 0 && (
         <CloseIcon
           onClick={onInputClear}
           className={styles.clearIcon}
