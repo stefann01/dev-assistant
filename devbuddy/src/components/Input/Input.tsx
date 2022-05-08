@@ -13,6 +13,8 @@ interface InputProps {
   status?: "default" | "success" | "error";
   showClearIcon?: boolean;
   style?: React.CSSProperties;
+  min?: number;
+  max?: number;
 }
 export default function Input({
   value,
@@ -24,6 +26,8 @@ export default function Input({
   status = "default",
   showClearIcon = false,
   style,
+  min,
+  max,
 }: InputProps) {
   const ref = React.useRef<HTMLInputElement>(null);
   const statusStyle = React.useMemo(() => {
@@ -57,6 +61,8 @@ export default function Input({
         onFocus={onFocus}
         onBlur={onBlur}
         className={styles.input}
+        min={min}
+        max={max}
       />
       {showClearIcon && status === "error" && (
         <div className={styles.errorIcon}>

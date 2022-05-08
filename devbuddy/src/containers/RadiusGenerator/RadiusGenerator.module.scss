@@ -1,0 +1,144 @@
+@import "../../variables.scss";
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.controlsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 50%;
+  margin-bottom: 56px;
+}
+
+.controlsSection {
+  display: flex;
+  flex-direction: row;
+}
+
+.elementContainer {
+  width: 50%;
+  aspect-ratio: 1 / 1;
+  border: 2px dashed $white;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.slider {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 100%; /* Specific width is required for Firefox. */
+  background: transparent;
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+}
+.slider:focus {
+  outline: none;
+}
+
+.slider:focus::-webkit-slider-thumb {
+  border: 4px solid white;
+  background-color: $primary;
+  width: 24px;
+  height: 24px;
+}
+
+.slider:focus::-moz-range-thumb {
+  border: 4px solid white;
+  background-color: $primary;
+  width: 24px;
+  height: 24px;
+}
+
+.sliderVerticalRight {
+  top: calc(50% - 10px);
+  width: calc(100% + 15px);
+  transform: rotate(90deg);
+  right: calc(-50% - 10px);
+}
+
+.sliderVerticalLeft {
+  top: calc(50% - 10px);
+  width: calc(100% + 15px);
+  transform: rotate(90deg);
+  left: calc(-50% - 10px);
+}
+
+.sliderTop {
+  top: -15px;
+  left: -10px;
+  width: calc(100% + 15px);
+}
+
+.sliderBottom {
+  bottom: -15px;
+  left: -10px;
+  width: calc(100% + 15px);
+}
+
+//Not works until duplicated
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 2px solid $white;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: $primary;
+  cursor: pointer;
+  z-index: 10;
+  pointer-events: auto;
+  transition: all 0.3s ease-in-out;
+}
+
+.slider::-moz-range-thumb {
+  -moz-appearance: none;
+  border: 2px solid $primary;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: $white;
+  cursor: pointer;
+  z-index: 10;
+  pointer-events: auto;
+  transition: all 0.3s ease-in-out;
+}
+
+//Not works until duplicated
+.slider::-webkit-slider-thumb:hover,
+.slider::-webkit-slider-thumb:focus {
+  border: 4px solid $white;
+  background-color: $primary;
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease-in-out;
+}
+
+.slider::-moz-range-thumb:hover {
+  border: 4px solid $white;
+  background-color: $primary;
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease-in-out;
+}
+
+.radiusElement {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #4158d0;
+  background-image: linear-gradient(
+    43deg,
+    #4158d0 0%,
+    #c850c0 46%,
+    #ffcc70 100%
+  );
+  z-index: 0;
+}

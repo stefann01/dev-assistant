@@ -16,6 +16,7 @@ import PrivateRoute from "./auth/login/PrivateRoute";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import LoadingIndicator from "./components/LoadingIndicator/LoadingIndicator";
+import RadiusGenerator from "./containers/RadiusGenerator/RadiusGenerator";
 
 function App() {
   const [user, loading] = useAuthState(auth);
@@ -33,6 +34,9 @@ function App() {
                   </Route>
                   <Route path="/class-generator" element={<PrivateRoute />}>
                     <Route path="" element={<ClassGenerator />} />
+                  </Route>
+                  <Route path="/radius-generator" element={<PrivateRoute />}>
+                    <Route path="" element={<RadiusGenerator />} />
                   </Route>
                   <Route path="/color-convertor" element={<PrivateRoute />}>
                     <Route
