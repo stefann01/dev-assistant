@@ -1,0 +1,123 @@
+@import "../../variables.scss";
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.left {
+  width: 50vw;
+  height: 100vh;
+  background-image: url("../../assets/svg/codeBackground.jpg");
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.subtitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.subtitle > p {
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  color: #ffffff;
+  margin-right: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.line {
+  width: 70px;
+  height: 3px;
+  border-radius: 5px;
+  background: $white;
+  margin: 0 10px 0 10px;
+}
+
+.title {
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 65px;
+  line-height: 94px;
+  color: #ffffff;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.right {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.formHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.formHeader > svg {
+  margin-right: 32px;
+}
+
+.formHeader > h1 {
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 64px;
+}
+
+.formControl > label {
+  margin-bottom: 5px;
+}
+
+.formControl {
+  margin-bottom: 10px;
+}
+
+.orComponent {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.orComponent > span {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.formLine {
+  width: 100%;
+  height: 3px;
+  border-radius: 5px;
+  background: #fff;
+  margin: 0 10px 0 10px;
+}
+
+.buttonText {
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+}
