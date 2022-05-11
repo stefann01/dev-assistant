@@ -9,13 +9,13 @@ import {
 } from "react-router-dom";
 import ClassGenerator from "./ClassGenerator/ClassGenerator";
 import PropertiesProvider from "./contexts/PropertiesContext";
-import Login from "./Login/login";
 import ReactComponentGenerator from "./React/component-generator/ReactComponentGenerator";
 import ReactComponentContextProvider from "./contexts/ReactComponentContext";
-import PrivateRoute from "./auth/login/PrivateRoute";
+import PrivateRoute from "./auth/PrivateRoute";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import LoadingIndicator from "./components/LoadingIndicator/LoadingIndicator";
+import Authentication from "./auth/containers/Authentication";
 import RadiusGenerator from "./containers/RadiusGenerator/RadiusGenerator";
 
 function App() {
@@ -71,7 +71,23 @@ function App() {
                   </Route>
                   <Route
                     path="/login"
-                    element={user ? <Navigate to="/" /> : <Login />}
+                    element={
+                      user ? (
+                        <Navigate to="/" />
+                      ) : (
+                        <Authentication type="login" />
+                      )
+                    }
+                  />
+                  <Route
+                    path="/register"
+                    element={
+                      user ? (
+                        <Navigate to="/" />
+                      ) : (
+                        <Authentication type="register" />
+                      )
+                    }
                   />
                   {/* <Route path="/not-found" element={<p>Not found</p>} /> */}
                 </Routes>
