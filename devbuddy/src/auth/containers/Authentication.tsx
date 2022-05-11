@@ -1,41 +1,35 @@
 import React, { useState } from "react";
-import Input from "../../components/Input/Input";
-import { logInWithEmailAndPassword, logout } from "../../firebase";
+import {
+  logInWithEmailAndPassword,
+  signUpUserWithEmailAndPassword,
+  signInWithGoogle,
+} from "../../firebase";
 import AuthenticationComponent from "../components/Authentication";
 
-export default function Authentication() {
+interface AuthenticationProps {
+  type: "login" | "register";
+}
+export default function Authentication({ type }: AuthenticationProps) {
   const [user, setUser] = useState({ email: "", password: "" });
-  return (
-    <AuthenticationComponent />
-    // <div
-    //   style={{
-    //     height: 300,
-    //     display: "flex",
-    //     flexDirection: "column",
-    //     margin: 10,
-    //   }}
-    // >
-    //   <Input
-    //     type="text"
-    //     value={user.email}
-    //     onChange={(e) =>
-    //       setUser((prevUser) => ({ ...prevUser, email: e.target.value }))
-    //     }
-    //   />
-    //   <Input
-    //     type="password"
-    //     value={user.password}
-    //     onChange={(e) =>
-    //       setUser((prevUser) => ({ ...prevUser, password: e.target.value }))
-    //     }
-    //   />
 
-    //   <button
-    //     onClick={() => logInWithEmailAndPassword(user.email, user.password)}
-    //   >
-    //     Login
-    //   </button>
-    //   <button onClick={logout}>Logout</button>
-    // </div>
+  const onUserChanged = (key: string, value: string) => {
+    setUser({ ...user, [key]: value });
+  };
+  const onSubmit = () => {
+    if (type === "login") {
+      logInWithEmailAndPassword(user.email, user.password);
+    } else {
+      signUpUserWithEmailAndPassword(user.email, user.password);
+    }
+  };
+
+  return (
+    <AuthenticationComponent
+      user={user}
+      userChanged={(key: string, value: string) => onUserChanged(key, value)}
+      onSubmit={onSubmit}
+      onGoogleSubmit={signInWithGoogle}
+      type={type}
+    />
   );
 }

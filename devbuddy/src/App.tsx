@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import ClassGenerator from "./ClassGenerator/ClassGenerator";
 import PropertiesProvider from "./contexts/PropertiesContext";
-import Login from "./Login/login";
 import ReactComponentGenerator from "./React/component-generator/ReactComponentGenerator";
 import ReactComponentContextProvider from "./contexts/ReactComponentContext";
 import PrivateRoute from "./auth/PrivateRoute";
@@ -72,7 +71,23 @@ function App() {
                   </Route>
                   <Route
                     path="/login"
-                    element={user ? <Navigate to="/" /> : <Authentication />}
+                    element={
+                      user ? (
+                        <Navigate to="/" />
+                      ) : (
+                        <Authentication type="login" />
+                      )
+                    }
+                  />
+                  <Route
+                    path="/register"
+                    element={
+                      user ? (
+                        <Navigate to="/" />
+                      ) : (
+                        <Authentication type="register" />
+                      )
+                    }
                   />
                   {/* <Route path="/not-found" element={<p>Not found</p>} /> */}
                 </Routes>

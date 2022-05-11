@@ -3,17 +3,10 @@
 .container {
   display: flex;
   flex-direction: row;
-}
-
-.left {
-  width: 50vw;
-  height: 100vh;
-  background-image: url("../../assets/svg/codeBackground.jpg");
-  background-position: center;
-  display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-end;
+  width: 100vw;
+  height: 100vh;
 }
 
 .subtitle {
@@ -55,15 +48,6 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.right {
-  width: 50vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 .formHeader {
@@ -120,4 +104,16 @@
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
+}
+
+.switchViewText {
+  font-family: "Jost";
+  font-style: normal;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.switchViewText:hover {
+  color: $primary;
+  text-decoration: underline;
 }
