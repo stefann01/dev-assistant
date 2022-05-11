@@ -5,6 +5,7 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import { ReactComponent as Google } from "../../assets/svg/google.svg";
 import { useNavigate } from "react-router-dom";
+import Divider from "../../components/Divider/Divider";
 
 interface AuthenticationProps {
   user: any;
@@ -80,11 +81,13 @@ export default function Authentication({
           </p>
         )}
 
-        <div className={styles.orComponent}>
-          <div className={styles.formLine}></div>
-          <span>or</span>
-          <div className={styles.formLine}></div>
-        </div>
+        <Divider
+          text="or"
+          style={{
+            height: "20px",
+            text: { spacing: "10px", fontSize: "30px" },
+          }}
+        />
 
         <Button
           style={{

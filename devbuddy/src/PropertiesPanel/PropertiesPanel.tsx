@@ -55,7 +55,7 @@ export default function PropertiesPanel() {
             value={entityName}
           />
         </div>
-        <Divider style={{ marginTop: "16px" }} />
+        <Divider style={{ height: "16px" }} />
 
         {properties &&
           properties.map((prop, index) => (
@@ -153,7 +153,7 @@ export default function PropertiesPanel() {
                   <MinusIcon />
                 </Button>
               </div>
-              <Divider style={{ marginTop: "16px" }} />
+              <Divider style={{ height: "16px" }} />
             </div>
           ))}
       </div>
