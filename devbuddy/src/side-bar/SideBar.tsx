@@ -15,6 +15,7 @@ import { ReactComponent as BorderRadius } from "../assets/svg/borderRadius.svg";
 import { ReactComponent as Shadow } from "../assets/svg/shadow.svg";
 import { ReactComponent as ReactLogo } from "../assets/svg/react.svg";
 import { ReactComponent as Animation } from "../assets/svg/animation.svg";
+import { ReactComponent as DevAssistantLogo } from "../assets/svg/DevAssistantLogo.svg";
 
 export default function SideBar() {
   const navigate = useNavigate();
@@ -27,19 +28,8 @@ export default function SideBar() {
       }`}
     >
       <div className={styles.logoContainer}>
-        {isOpen && (
-          <img
-            src={Cat}
-            alt="Dev buddy main logo."
-            className={styles.logoImage}
-            onClick={() => navigate("/")}
-          />
-        )}
-        {isOpen && (
-          <p className={styles.logoTitle} onClick={() => navigate("/")}>
-            The Dev Buddy
-          </p>
-        )}
+        {isOpen && <DevAssistantLogo onClick={() => navigate("/")} />}
+
         <div
           className={styles.hideArrow}
           onClick={() => setIsOpen(!isOpen)}
@@ -104,7 +94,7 @@ export default function SideBar() {
         />
       </div>
 
-      <NavSectionTitle title={isOpen ? "REACT" : "R"} />
+      <NavSectionTitle title={isOpen ? "React" : "R"} />
       <div className={styles.codeItemsContainer}>
         <NavItem
           title="React component"
@@ -112,8 +102,23 @@ export default function SideBar() {
           isCollapsed={!isOpen}
           icon={<ReactLogo width={18} height={18} />}
         />
+        <NavItem
+          title="React Context"
+          onClick={() => navigate("/react-component")}
+          isCollapsed={!isOpen}
+          icon={<ReactLogo width={18} height={18} />}
+        />
       </div>
-      <Button onClick={logout}>Log out</Button>
+
+      <NavSectionTitle title={isOpen ? "Angular" : "A"} />
+      <div className={styles.codeItemsContainer}>
+        <NavItem
+          title="Angular Component"
+          onClick={() => navigate("/react-component")}
+          isCollapsed={!isOpen}
+          icon={<ReactLogo width={18} height={18} />}
+        />
+      </div>
     </div>
   );
 }

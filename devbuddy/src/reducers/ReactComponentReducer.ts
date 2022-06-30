@@ -1,4 +1,10 @@
 import Action from "../Models/Action.model";
+import {
+  ReactEffect,
+  ReactProp,
+  ReactRef,
+  ReactState,
+} from "../Models/ReactTypes";
 
 enum ReactComponentActions {
   EDIT_NAME,
@@ -17,24 +23,10 @@ enum ReactComponentActions {
   ADD_EFFECT_DEPENDENCY,
   REMOVE_DEP_ARRAY_ITEM,
   TOGGLE_SECTION_VISIBILITY,
+  ADD_REF,
+  REMOVE_REF,
+  EDIT_REF,
 }
-export { ReactComponentActions };
-
-type ReactProp = {
-  name: string;
-  type: string;
-};
-
-type ReactState = {
-  name: string;
-  defaultValue: any;
-};
-
-type ReactEffect = {
-  hasCleanUpFunction: boolean;
-  hasDependencyArray: boolean;
-  depArray: string[];
-};
 
 type ReactComponentState = {
   name: string;
@@ -43,10 +35,15 @@ type ReactComponentState = {
   props: ReactProp[];
   states: ReactState[];
   effects: ReactEffect[];
+  refs: ReactRef[];
   arePropsVisible: boolean;
   areStatesVisible: boolean;
   areEffectsVisible: boolean;
+  areRefsVisible: boolean;
 };
+
+export { ReactComponentActions };
+export type { ReactComponentState };
 
 export function ReactComponentReducer(
   state: ReactComponentState,
@@ -208,9 +205,40 @@ export function ReactComponentReducer(
             ...state,
             areEffectsVisible: !state.areEffectsVisible,
           };
+        case "refs":
+          return {
+            ...state,
+            areRefsVisible: !state.areRefsVisible,
+          };
         default:
           return state;
       }
+    }
+
+    case ReactComponentActions.ADD_REF: {
+      return {
+        ...state,
+        refs: [...state.refs, { name: "newRef", defaultValue: "type" }],
+      } as ReactComponentState;
+    }
+
+    case ReactComponentActions.EDIT_REF: {
+      return {
+        ...state,
+        refs: state.refs.map((ref, index) => {
+          if (index === action.payload.index) {
+            return { ...action.payload.ref };
+          }
+          return ref;
+        }),
+      };
+    }
+
+    case ReactComponentActions.REMOVE_REF: {
+      return {
+        ...state,
+        refs: state.refs.filter((r, i) => i !== action.payload.index),
+      } as ReactComponentState;
     }
 
     default:

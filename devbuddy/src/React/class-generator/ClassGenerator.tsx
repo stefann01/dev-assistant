@@ -12,7 +12,7 @@ import { ReactComponent as SassLogo } from "../../assets/svg/sass_logo.svg";
 import { ReactComponent as CssLogo } from "../../assets/svg/css_logo.svg";
 
 export default function ClassGenerator() {
-  const { name, props, states, effects, isStyleModule, cssMode } =
+  const { name, props, states, effects, refs, isStyleModule, cssMode } =
     useReactComponent();
   const [activeTab, setActiveTab] = useState<"component" | "style" | "test">(
     "component"
@@ -52,6 +52,7 @@ export default function ClassGenerator() {
                   props,
                   states,
                   effects,
+                  refs,
                   cssMode,
                   isStyleModule,
                 })}

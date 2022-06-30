@@ -1,4 +1,5 @@
 @import "../variables.scss";
+@import "../mixins.scss";
 
 .sidebarContainer {
   height: 100vh;
@@ -6,11 +7,13 @@
   padding-left: 20px;
   padding-right: 20px;
   border-right: 1px solid #bdbdbd;
+  overflow-y: auto;
+  @include scroll;
 }
 
 .expandedContainer {
   @extend .sidebarContainer;
-  min-width: 20%;
+  min-width: 15%;
 }
 
 .collapsedContainer {
@@ -26,6 +29,9 @@
   align-items: center;
   height: 64px;
   cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: relative;
 }
 
 .logoTitle {
@@ -61,6 +67,9 @@
   justify-content: center;
   align-items: center;
   fill: $white;
+  position: absolute;
+  top: 16px;
+  right: 0px;
 }
 
 .hideArrow:hover {

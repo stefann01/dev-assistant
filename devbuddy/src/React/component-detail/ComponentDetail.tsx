@@ -5,6 +5,7 @@ import { useReactComponent } from "../../contexts/ReactComponentContext";
 import { ReactComponentActions } from "../../reducers/ReactComponentReducer";
 import EffectsDetail from "../effects-detail/EffectsDetail";
 import PropsDetail from "../props-detail/PropsDetail";
+import RefDetail from "../ref-detail/RefDetail";
 import StateDetail from "../state-detail/StateDetail";
 import styles from "./ComponentDetail.module.scss";
 
@@ -52,6 +53,7 @@ export default function ComponentDetail({ style }: ComponentDetailProps) {
           }
         />
         <div className={styles.moduleContainer}>
+          {/* TODO: Replace this with a checkbox component once created. */}
           <input
             type={"checkbox"}
             checked={isStyleModule}
@@ -76,6 +78,10 @@ export default function ComponentDetail({ style }: ComponentDetailProps) {
 
       <div className={styles.propsContainer}>
         <EffectsDetail />
+      </div>
+
+      <div className={styles.propsContainer}>
+        <RefDetail />
       </div>
     </div>
   );

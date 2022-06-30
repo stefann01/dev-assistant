@@ -17,6 +17,7 @@ import { auth } from "./firebase";
 import LoadingIndicator from "./components/LoadingIndicator/LoadingIndicator";
 import Authentication from "./auth/containers/Authentication";
 import RadiusGenerator from "./containers/RadiusGenerator/RadiusGenerator";
+import Home from "./containers/Home/Home";
 
 function App() {
   const [user, loading] = useAuthState(auth);
@@ -27,10 +28,10 @@ function App() {
           <PropertiesProvider>
             <ReactComponentContextProvider>
               <div className={styles.appContainer}>
-                {user && <SideBar />}
+                {true && <SideBar />}
                 <Routes>
                   <Route path="/" element={<PrivateRoute />}>
-                    <Route path="" element={<p>Home</p>} />
+                    <Route path="" element={<Home />} />
                   </Route>
                   <Route path="/class-generator" element={<PrivateRoute />}>
                     <Route path="" element={<ClassGenerator />} />

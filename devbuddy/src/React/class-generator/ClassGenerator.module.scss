@@ -1,11 +1,12 @@
 .container {
-  width: 100%;
+  width: auto;
   background: #1e1e1e;
   border: 2px solid #959595;
   border-radius: 4px;
   height: 100%;
   display: flex;
   flex-direction: column;
+  margin: 0px 40px 0px 0px;
 }
 
 .tabContainer {

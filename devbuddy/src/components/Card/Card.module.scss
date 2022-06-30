@@ -1,0 +1,33 @@
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f5f8ff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(187, 178, 178, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.cardContainer:last-child {
+  margin-bottom: 0;
+}
+
+.title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 30px;
+  color: #000000;
+  margin: 0;
+}
+
+.text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0;
+  color: #000000;
+}

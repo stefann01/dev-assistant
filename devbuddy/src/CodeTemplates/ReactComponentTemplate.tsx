@@ -50,21 +50,70 @@ const getReactProps = ({ props, componentName }: any) => {
   }`;
 };
 
+const getReactState = (states: any) => {
+  return states.length > 0
+    ? states
+        .map(
+          (state: any) =>
+            `const [${getValidVariableName(
+              state.name
+            )}, set${getValidVariableName(
+              state.name
+            )}] = useState(${getValidDefaultValue(state.defaultValue)});`
+        )
+        .join("")
+    : "";
+};
+
+const getReactEffects = (effects: any) => {
+  return effects.length > 0
+    ? effects
+        .map(
+          (effect: any) =>
+            `useEffect(()=>{ console.log("Your effect"); ${
+              effect.hasCleanUpFunction
+                ? "return ()=>{console.log('Your cleanup');}"
+                : ""
+            }} ${
+              effect.hasDependencyArray
+                ? `,[${[...effect.depArray].join(",")}]`
+                : ""
+            });`
+        )
+
+        .join("")
+    : "";
+};
+
+const getReactRefs = (refs: any) => {
+  return refs.length > 0
+    ? refs
+        .map(
+          (ref: any) =>
+            `const ${getValidVariableName(
+              ref.name
+            )} = useRef(${getValidDefaultValue(ref.defaultValue)});`
+        )
+        .join("")
+    : "";
+};
+
 export const ReactComponentTemplate = ({
   name,
   props,
   states,
   effects,
+  refs,
   cssMode,
   isStyleModule,
 }: any) => {
   return prettier.format(
     `
-    ${getReactImports({
-      hasEffects: effects.length > 0,
-      hasStates: states.length > 0,
-    })} \n
-    ${getStyleModeImport({ cssMode, isStyleModule, componentName: name })} \n
+  ${getReactImports({
+    hasEffects: effects.length > 0,
+    hasStates: states.length > 0,
+  })} \n
+  ${getStyleModeImport({ cssMode, isStyleModule, componentName: name })} \n
   
   ${getReactPropTypes({ props, componentName: name })} \n
     
@@ -75,45 +124,13 @@ export const ReactComponentTemplate = ({
       componentName: name,
     })})=>{
   
-  ${
-    states.length > 0
-      ? states
-          .map(
-            (state: any) =>
-              `const [${getValidVariableName(
-                state.name
-              )}, set${getValidVariableName(
-                state.name
-              )}] = useState(${getValidDefaultValue(state.defaultValue)});`
-          )
-          .join("")
-      : ""
-  }
-  
-  ${
-    effects.length > 0
-      ? effects
-          .map(
-            (effect: any) =>
-              `useEffect(()=>{ console.log("Your effect"); ${
-                effect.hasCleanUpFunction
-                  ? "return ()=>{console.log('Your cleanup');}"
-                  : ""
-              }} ${
-                effect.hasDependencyArray
-                  ? `,[${[...effect.depArray].join(",")}]`
-                  : ""
-              });`
-          )
+  ${getReactState(states)}
 
-          .join("")
-      : ""
-  }
+  ${getReactRefs(refs)}
   
-  
-  
+  ${getReactEffects(effects)}
   return(
-    <div>${name || "MyComponent"}</div>
+    <div>${name}</div>
   )
   
       }

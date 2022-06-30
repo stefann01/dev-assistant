@@ -1,25 +1,16 @@
 import React, { useReducer } from "react";
 import Action from "../Models/Action.model";
 import {
+  ReactProp,
+  ReactState,
+  ReactEffect,
+  ReactRef,
+} from "../Models/ReactTypes";
+import {
   ReactComponentActions,
   ReactComponentReducer,
 } from "../reducers/ReactComponentReducer";
 
-type ReactProp = {
-  name: string;
-  type: string;
-};
-
-type ReactState = {
-  name: string;
-  defaultValue: any;
-};
-
-type ReactEffect = {
-  hasCleanUpFunction: boolean;
-  hasDependencyArray: boolean;
-  depArray: string[];
-};
 type ReactComponentContextType = {
   name: string;
   cssMode: "css" | "scss";
@@ -27,9 +18,11 @@ type ReactComponentContextType = {
   props: ReactProp[];
   states: ReactState[];
   effects: ReactEffect[];
+  refs: ReactRef[];
   arePropsVisible: boolean;
   areStatesVisible: boolean;
   areEffectsVisible: boolean;
+  areRefsVisible: boolean;
   dispatch: React.Dispatch<Action<ReactComponentActions, any>>;
 };
 
@@ -45,9 +38,11 @@ export default function ReactComponentContextProvider(props: any) {
     props: [],
     states: [],
     effects: [],
+    refs: [],
     arePropsVisible: true,
     areStatesVisible: true,
     areEffectsVisible: true,
+    areRefsVisible: true,
   });
 
   return (

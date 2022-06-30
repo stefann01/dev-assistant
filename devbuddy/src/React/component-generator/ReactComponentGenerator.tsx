@@ -7,8 +7,17 @@ export default function ReactComponentGenerator() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>React class generator</h1>
-      <div style={{ width: "stretch", display: "flex", flexDirection: "row" }}>
-        <ComponentDetail style={{ width: "275px", minWidth: "275px" }} />
+      <div
+        style={{
+          width: "stretch",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <ComponentDetail
+          style={{ width: "275px", minWidth: "275px", marginRight: "40px" }}
+        />
         <div style={{ width: "-webkit-fill-available" }}>
           <ClassGenerator />
         </div>
