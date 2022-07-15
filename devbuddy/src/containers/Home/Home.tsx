@@ -3,8 +3,11 @@ import Card from "../../components/Card/Card";
 import { ReactComponent as ReactLogo } from "../../assets/svg/ReactLogo.svg";
 import { ReactComponent as AngularLogo } from "../../assets/svg/AngularLogo.svg";
 import styles from "./Home.module.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className={styles.homeContainer}>
       <div className={styles.blur}></div>
@@ -25,6 +28,9 @@ export default function Home() {
             text="Generate a React component in a blink of an eye, without thinking about the syntax."
             buttonText="GO React"
             logo={<ReactLogo />}
+            onClick={() => {
+              navigate("/react-component");
+            }}
           />
 
           <Card

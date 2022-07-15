@@ -7,9 +7,16 @@ interface CardProps {
   text: string;
   buttonText: string;
   logo: React.ReactNode;
+  onClick?: () => void;
 }
 
-export default function Card({ title, text, buttonText, logo }: CardProps) {
+export default function Card({
+  title,
+  text,
+  buttonText,
+  logo,
+  onClick,
+}: CardProps) {
   return (
     <div className={styles.cardContainer}>
       <div style={{ width: "125px" }}>{logo}</div>
@@ -24,6 +31,7 @@ export default function Card({ title, text, buttonText, logo }: CardProps) {
           width: "160px",
           alignSelf: "end",
         }}
+        onClick={onClick}
       >
         {buttonText}
       </Button>
