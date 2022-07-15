@@ -11,8 +11,19 @@ export default function StateDetail() {
   const { states, areStatesVisible, dispatch } = useReactComponent();
   const items = useMemo(() => {
     return states.map((s, index) => (
-      <div key={index} className={styles.controlsRow}>
-        <div className={styles.rowItem}>
+      <div
+        key={index}
+        style={{ width: "stretch", display: "flex", flexDirection: "column" }}
+      >
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            marginBottom: "10px",
+          }}
+        >
           <Input
             value={s.name}
             onChange={(e) =>
@@ -22,9 +33,21 @@ export default function StateDetail() {
               })
             }
           />
+          <div style={{ marginLeft: "10px" }}>
+            <Button
+              onClick={() =>
+                dispatch({
+                  type: ReactComponentActions.REMOVE_STATE,
+                  payload: { index },
+                })
+              }
+            >
+              <img src={Minus} alt="Remove state" />
+            </Button>
+          </div>
         </div>
         <div className={styles.rowItem}>
-          <Input
+          <textarea
             value={s.defaultValue}
             onChange={(e) =>
               dispatch({
@@ -37,16 +60,6 @@ export default function StateDetail() {
             }
           />
         </div>
-        <Button
-          onClick={() =>
-            dispatch({
-              type: ReactComponentActions.REMOVE_STATE,
-              payload: { index },
-            })
-          }
-        >
-          <img src={Minus} alt="Remove state" />
-        </Button>
       </div>
     ));
   }, [dispatch, states]);
@@ -65,6 +78,8 @@ export default function StateDetail() {
           });
         }}
         isShow={areStatesVisible}
+        showInfo={true}
+        info={"TIP: You can format you state as a stringified json object."}
       />
       <div className={styles.propsItems}>{areStatesVisible && items}</div>
     </>

@@ -1,4 +1,5 @@
 import React from "react";
+import InfoChip from "../../components/InfoChip/InfoChip";
 import Input from "../../components/Input/Input";
 import Toggle from "../../components/Toggle/Toggle";
 import { useReactComponent } from "../../contexts/ReactComponentContext";
@@ -26,7 +27,9 @@ export default function ComponentDetail({ style }: ComponentDetailProps) {
       <div className={styles.componentName}>
         <div className={styles.componentNameLine}>
           <label>Component name</label>
-          <div className={styles.infoButton}>i</div>
+          <span style={{ marginLeft: "auto" }}>
+            <InfoChip info={"You component name here"} />
+          </span>
         </div>
         <Input
           value={name}
