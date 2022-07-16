@@ -20,11 +20,6 @@
   background: $primary;
 }
 
-.container:hover > .chipRemoveBtn {
-  background: #a6a6a6;
-  border: 1px solid #a6a6a6;
-}
-
 .chipRemoveBtn {
   width: 14px;
   height: 14px;
@@ -41,8 +36,9 @@
 }
 
 .label {
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
   color: $white;
   line-height: normal;
   margin: 0;

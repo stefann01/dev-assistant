@@ -16,6 +16,8 @@ import { ReactComponent as StaticIcon } from "../assets/svg/Static.svg";
 import { ReactComponent as NonStaticIcon } from "../assets/svg/NonStatic.svg";
 import { ReactComponent as Readonly } from "../assets/svg/Readonly.svg";
 import { ReactComponent as NonReadonly } from "../assets/svg/NonReadonly.svg";
+import ConditionalWrapper from "../containers/ConditionalWrapper/ConditionalWrapper";
+import Tooltip from "../components/Tooltip/Tooltip";
 
 export default function PropertiesPanel() {
   const { dispatch, properties, entityType, entityName } = useProperties();
@@ -88,18 +90,31 @@ export default function PropertiesPanel() {
                   </Button>
                 )}
 
-                <Button
-                  style={{ width: "32px", height: "32px", marginRight: "8px" }}
-                  disabled={prop.isFunction}
-                  onClick={() =>
-                    editProperty(index, {
-                      ...prop,
-                      isReadonly: !prop.isReadonly,
-                    })
-                  }
+                <ConditionalWrapper
+                  condition={prop.isFunction}
+                  wrapper={(children) => (
+                    <Tooltip content="A function cannot be readonly">
+                      {children}
+                    </Tooltip>
+                  )}
                 >
-                  {prop.isReadonly ? <Readonly /> : <NonReadonly />}
-                </Button>
+                  <Button
+                    style={{
+                      width: "32px",
+                      height: "32px",
+                      marginRight: "8px",
+                    }}
+                    disabled={prop.isFunction}
+                    onClick={() =>
+                      editProperty(index, {
+                        ...prop,
+                        isReadonly: !prop.isReadonly,
+                      })
+                    }
+                  >
+                    {prop.isReadonly ? <Readonly /> : <NonReadonly />}
+                  </Button>
+                </ConditionalWrapper>
 
                 {entityType !== "interface" && (
                   <>

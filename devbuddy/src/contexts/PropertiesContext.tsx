@@ -19,6 +19,7 @@ export default function PropertiesProvider(props: any) {
   const [state, dispatch] = useReducer(PropertiesReducer, {
     properties: [],
     entityType: "class",
+    entityName: "MyEntity",
   });
 
   return (

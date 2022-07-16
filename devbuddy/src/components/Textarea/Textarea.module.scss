@@ -1,0 +1,27 @@
+@import "../../variables.scss";
+.defaultInput {
+  background: linear-gradient(93.49deg, #cc6699 0.36%, #264de4 98.58%);
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 32px;
+  height: 32px;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+.textarea {
+  width: calc(100% - #{3 * $textarea-border-width});
+  height: calc(100% - #{3 * $textarea-border-width});
+  border-radius: 3px;
+}
+
+.textarea:focus {
+  outline: none;
+}

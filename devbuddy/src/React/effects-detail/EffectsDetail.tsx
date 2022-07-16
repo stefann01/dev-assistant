@@ -7,9 +7,10 @@ import { useReactComponent } from "../../contexts/ReactComponentContext";
 import { ReactComponentActions } from "../../reducers/ReactComponentReducer";
 import styles from "../component-detail/ComponentDetail.module.scss";
 import Minus from "../../assets/svg/minus.svg";
-import Plus from "../../assets/svg/Plus.svg";
+import { ReactComponent as Plus } from "../../assets/svg/Plus.svg";
 import Button from "../../components/Button/Button";
 import { isValidDependencyArrayItem } from "../../helper/helper";
+import InfoChip from "../../components/InfoChip/InfoChip";
 
 export default function EffectsDetail() {
   const { effects, areEffectsVisible, dispatch } = useReactComponent();
@@ -52,6 +53,7 @@ export default function EffectsDetail() {
           <p>Cleanup function</p>
           <div style={{ marginLeft: "auto" }}>
             <Button
+              style={{ width: "32px", height: "32px", color: "white" }}
               onClick={() =>
                 dispatch({
                   type: ReactComponentActions.REMOVE_EFFECT,
@@ -107,16 +109,21 @@ export default function EffectsDetail() {
                   }}
                 />
               </div>
-              <Button
-                onClick={() => addDependency(index)}
-                disabled={
-                  !isValidDependencyArrayItem(
-                    newDependencyItems[index].value
-                  ) || newDependencyItems[index].value.length === 0
-                }
-              >
-                <img src={Plus} alt="Remove prop" />
-              </Button>
+              <span style={{ marginLeft: "10px" }}>
+                <Button
+                  onClick={() => addDependency(index)}
+                  disabled={
+                    !isValidDependencyArrayItem(
+                      newDependencyItems[index].value
+                    ) || newDependencyItems[index].value.length === 0
+                  }
+                >
+                  <Plus />
+                </Button>
+              </span>
+              <span style={{ marginLeft: "10px" }}>
+                <InfoChip info="Scroll horizontally if dependency items are too long" />
+              </span>
             </div>
 
             {effect.depArray.length > 0 && (

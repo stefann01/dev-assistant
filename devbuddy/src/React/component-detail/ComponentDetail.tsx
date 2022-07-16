@@ -27,7 +27,7 @@ export default function ComponentDetail({ style }: ComponentDetailProps) {
       <div className={styles.componentName}>
         <div className={styles.componentNameLine}>
           <label>Component name</label>
-          <span style={{ marginLeft: "auto" }}>
+          <span style={{ marginLeft: "auto", display: "flex" }}>
             <InfoChip info={"You component name here"} />
           </span>
         </div>

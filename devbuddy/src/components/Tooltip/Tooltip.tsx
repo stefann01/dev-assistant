@@ -11,7 +11,7 @@ export default function Tooltip({
   delay = 400,
   children,
   content,
-  direction = "left",
+  direction = "right",
   gap = 10,
 }: TooltipProps) {
   let timeout: any;
@@ -25,8 +25,28 @@ export default function Tooltip({
   const showTip = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     timeout = setTimeout(() => {
       const coords = (e.target as HTMLDivElement).getBoundingClientRect();
-      const x = coords.top;
-      const y = coords.left + coords.width + gap;
+      let x = 0;
+      let y = 0;
+      switch (direction) {
+        case "left":
+          x = coords.top + coords.height / 2;
+          y = coords.left - gap;
+          break;
+        case "right":
+          x = coords.top + coords.height / 2;
+          y = coords.left + coords.width + gap;
+          break;
+        case "top":
+          x = coords.top - gap;
+          y = coords.left + coords.width / 2;
+          break;
+        case "bottom":
+          x = coords.top + coords.height + gap;
+          y = coords.left + coords.width / 2;
+          break;
+        default:
+          break;
+      }
       setTooltipData({
         active: true,
         top: x,
@@ -44,12 +64,12 @@ export default function Tooltip({
       className={styles.TooltipWrapper}
       onMouseEnter={(e) => showTip(e)}
       onMouseLeave={hideTip}
-      //   onClick={(e) => showTip(e)}
+      // onClick={(e) => showTip(e)}
     >
       {children}
       {tooltipData.active && (
         <div
-          className={`${styles.TooltipTip} ${direction}`}
+          className={`${styles.TooltipTip} ${styles[direction]}`}
           style={{ left: `${tooltipData.left}px`, top: `${tooltipData.top}px` }}
         >
           {content}

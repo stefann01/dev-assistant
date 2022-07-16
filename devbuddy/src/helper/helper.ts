@@ -163,3 +163,42 @@ export const isValidDependencyArrayItem = (str: string) => {
 export const colorParagraph = (str: string) => {
   return `<p style="color: #00ff00;">${str}</p>`;
 };
+
+export const downloadFile = (filename: string, text: string) => {
+  const element = document.createElement("a");
+  element.setAttribute(
+    "href",
+    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+  );
+  element.setAttribute("download", filename);
+
+  element.style.display = "none";
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+};
+
+export function copyTextToClipboard(
+  text: string,
+  success?: () => void,
+  error?: () => void
+) {
+  if (!navigator.clipboard) {
+    error ? error() : console.log("clipboard not supported");
+    return;
+  }
+  navigator.clipboard.writeText(text).then(
+    success
+      ? success
+      : function () {
+          console.log("Async: Copying to clipboard was successful!");
+        },
+    error
+      ? error
+      : function (err) {
+          console.error("Async: Could not copy text: ", err);
+        }
+  );
+}

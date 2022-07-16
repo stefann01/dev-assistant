@@ -9,6 +9,7 @@ import styles from "./CodeTextarea.module.scss";
 import { ReactComponent as CodeDownloadIcon } from "../../assets/svg/code-download.svg";
 import { getValidVariableName } from "../../helper/helper";
 import { DEFAULT_ENTITY_NAME } from "../../helper/constants";
+import { downloadFile } from "../../helper/helper";
 
 export default function CodeTextarea() {
   const { properties, entityType, entityName } = useProperties();
@@ -28,20 +29,18 @@ export default function CodeTextarea() {
     return "";
   }, [entityName, entityType, properties]);
 
-  const downloadFile = () => {
-    const element = document.createElement("a");
-    const file = new Blob([displayedCode], { type: "text/plain" });
-    element.href = URL.createObjectURL(file);
-    element.download = getValidVariableName(entityName, DEFAULT_ENTITY_NAME);
-    document.body.appendChild(element); // Required for this to work in FireFox
-    element.click();
-    element.remove();
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Button onClick={downloadFile} style={{ marginLeft: "10px" }}>
+        <Button
+          onClick={() =>
+            downloadFile(
+              getValidVariableName(entityName, DEFAULT_ENTITY_NAME),
+              `${displayedCode}.ts`
+            )
+          }
+          style={{ marginLeft: "10px" }}
+        >
           <CodeDownloadIcon />
         </Button>
       </div>

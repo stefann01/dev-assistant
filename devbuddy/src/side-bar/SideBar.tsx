@@ -2,10 +2,7 @@ import React from "react";
 import NavItem from "../components/NavItem/NavItem";
 import NavSectionTitle from "../components/NavSectionTitle/NavSectionTitle";
 import styles from "./SideBar.module.scss";
-import Cat from "../assets/svg/Cat.svg";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../firebase";
-import Button from "../components/Button/Button";
 import { ReactComponent as LeftArrow } from "../assets/svg/left-arrow.svg";
 import { ReactComponent as RightArrow } from "../assets/svg/right-arrow.svg";
 import { ReactComponent as DataModel } from "../assets/svg/dataModel.svg";
@@ -19,7 +16,7 @@ import { ReactComponent as DevAssistantLogo } from "../assets/svg/DevAssistantLo
 
 export default function SideBar() {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(true);
 
   return (
     <div
@@ -51,23 +48,76 @@ export default function SideBar() {
           icon={<DataModel width={18} height={18} />}
           isCollapsed={!isOpen}
         />
-        <NavItem
-          title="Color convertor"
-          onClick={() => navigate("/color-convertor")}
-          icon={<ColorConvertor width={18} height={18} />}
-          isCollapsed={!isOpen}
-        />
-        <NavItem
+
+        {/* <NavItem
           title="Rems & pixels"
           onClick={() => navigate("/rems-pixels")}
           icon={"RP"}
           isCollapsed={!isOpen}
+        /> */}
+      </div>
+
+      <NavSectionTitle title={isOpen ? "React" : "R"} />
+      <div className={styles.codeItemsContainer}>
+        <NavItem
+          title="React Component"
+          onClick={() => navigate("/react-component")}
+          isCollapsed={!isOpen}
+          icon={<ReactLogo width={18} height={18} />}
+        />
+        <NavItem
+          title="React Context"
+          onClick={() => navigate("/react-context")}
+          isCollapsed={!isOpen}
+          icon={<ReactLogo width={18} height={18} />}
+        />
+
+        <NavItem
+          title="React Reducer"
+          onClick={() => navigate("/react-reducer")}
+          isCollapsed={!isOpen}
+          icon={<ReactLogo width={18} height={18} />}
+        />
+
+        <NavItem
+          title="React Cool Hooks & Tricks"
+          onClick={() => navigate("/react-cool-hooks")}
+          isCollapsed={!isOpen}
+          icon={<ReactLogo width={18} height={18} />}
+        />
+      </div>
+
+      <NavSectionTitle title={isOpen ? "Angular" : "A"} />
+      <div className={styles.codeItemsContainer}>
+        <NavItem
+          title="Angular Component"
+          onClick={() => navigate("/angular-component")}
+          isCollapsed={!isOpen}
+          icon={<ReactLogo width={18} height={18} />}
+        />
+        <NavItem
+          title="Angular Service"
+          onClick={() => navigate("/angular-service")}
+          isCollapsed={!isOpen}
+          icon={<ReactLogo width={18} height={18} />}
+        />
+        <NavItem
+          title="Angular Directive"
+          onClick={() => navigate("/angular-directive")}
+          isCollapsed={!isOpen}
+          icon={<ReactLogo width={18} height={18} />}
         />
       </div>
 
       <NavSectionTitle title="UI" />
 
       <div className={styles.codeItemsContainer}>
+        <NavItem
+          title="Color convertor"
+          onClick={() => navigate("/color-convertor")}
+          icon={<ColorConvertor width={18} height={18} />}
+          isCollapsed={!isOpen}
+        />
         <NavItem
           title="Gradient generator"
           onClick={() => navigate("/gradient-generator")}
@@ -91,32 +141,6 @@ export default function SideBar() {
           onClick={() => navigate("/animation-generator")}
           isCollapsed={!isOpen}
           icon={<Animation width={18} height={18} />}
-        />
-      </div>
-
-      <NavSectionTitle title={isOpen ? "React" : "R"} />
-      <div className={styles.codeItemsContainer}>
-        <NavItem
-          title="React component"
-          onClick={() => navigate("/react-component")}
-          isCollapsed={!isOpen}
-          icon={<ReactLogo width={18} height={18} />}
-        />
-        <NavItem
-          title="React Context"
-          onClick={() => navigate("/react-component")}
-          isCollapsed={!isOpen}
-          icon={<ReactLogo width={18} height={18} />}
-        />
-      </div>
-
-      <NavSectionTitle title={isOpen ? "Angular" : "A"} />
-      <div className={styles.codeItemsContainer}>
-        <NavItem
-          title="Angular Component"
-          onClick={() => navigate("/react-component")}
-          isCollapsed={!isOpen}
-          icon={<ReactLogo width={18} height={18} />}
         />
       </div>
     </div>

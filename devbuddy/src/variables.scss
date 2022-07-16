@@ -1,4 +1,5 @@
-$primary: #2350dd; //React logo color
+$primary: rgb(35, 80, 221); //React logo color
+$primary35: rgba(35, 80, 221, 0.35);
 $hover: #1d40b0;
 // $active: #69bee0;
 // $focus: #b0edfd;
@@ -8,6 +9,7 @@ $white: #fff;
 $black: #000;
 
 $background: #0b090a;
+$background-lightest: #1f1f1f;
 $background-light: #222222;
 $background-dark: #0b090a;
 $background-hover: #1a1618;
@@ -34,3 +36,4 @@ $mb-12: 12px;
 $mb-10: 10px;
 
 $input-border-width: 2px;
+$textarea-border-width: 3px;

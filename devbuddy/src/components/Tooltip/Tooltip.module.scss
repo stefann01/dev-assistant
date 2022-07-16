@@ -12,12 +12,28 @@
   position: fixed;
   border-radius: 4px;
   padding: 6px;
-  color: $black;
-  background: $white;
+  color: $white;
+  background: $background-lightest;
   font-size: 14px;
   font-family: sans-serif;
   line-height: 1;
   z-index: 100;
   white-space: nowrap;
-  border: 3px solid $black;
+  border: 2px solid $white;
+}
+
+.right {
+  transform: translateY(-50%);
+}
+
+.left {
+  transform: translateY(-50%) translateX(-100%);
+}
+
+.top {
+  transform: translateY(-100%) translateX(-50%);
+}
+
+.bottom {
+  transform: translateX(-50%);
 }

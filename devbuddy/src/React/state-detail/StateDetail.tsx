@@ -6,6 +6,7 @@ import { useReactComponent } from "../../contexts/ReactComponentContext";
 import { ReactComponentActions } from "../../reducers/ReactComponentReducer";
 import styles from "../component-detail/ComponentDetail.module.scss";
 import Minus from "../../assets/svg/minus.svg";
+import Textarea from "../../components/Textarea/Textarea";
 
 export default function StateDetail() {
   const { states, areStatesVisible, dispatch } = useReactComponent();
@@ -47,7 +48,7 @@ export default function StateDetail() {
           </div>
         </div>
         <div className={styles.rowItem}>
-          <textarea
+          <Textarea
             value={s.defaultValue}
             onChange={(e) =>
               dispatch({
@@ -58,6 +59,7 @@ export default function StateDetail() {
                 },
               })
             }
+            resize={"vertical"}
           />
         </div>
       </div>
@@ -79,7 +81,7 @@ export default function StateDetail() {
         }}
         isShow={areStatesVisible}
         showInfo={true}
-        info={"TIP: You can format you state as a stringified json object."}
+        info={"TIP: You can format you state as a stringified JSON object."}
       />
       <div className={styles.propsItems}>{areStatesVisible && items}</div>
     </>

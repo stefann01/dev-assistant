@@ -40,35 +40,16 @@ function App() {
                     <Route path="" element={<RadiusGenerator />} />
                   </Route>
                   <Route path="/color-convertor" element={<PrivateRoute />}>
-                    <Route
-                      path=""
-                      element={
-                        <a
-                          href="https://stefann01.github.io/css-unit-converter/"
-                          target={"_blank"}
-                          rel="noreferrer"
-                        >
-                          Color convertor
-                        </a>
-                      }
-                    />
+                    <Route path="" element={<h1>COMING SOON...</h1>} />
                   </Route>
                   <Route path="/react-component" element={<PrivateRoute />}>
                     <Route path="" element={<ReactComponentGenerator />} />
                   </Route>
                   <Route path="/animation-generator" element={<PrivateRoute />}>
-                    <Route
-                      path=""
-                      element={
-                        <a
-                          href="https://angrytools.com/css/animation"
-                          target={"_blank"}
-                          rel="noreferrer"
-                        >
-                          https://angrytools.com/css/animation/
-                        </a>
-                      }
-                    />
+                    <Route path="" element={<h1>COMING SOON...</h1>} />
+                  </Route>
+                  <Route path="/gradient-generator" element={<PrivateRoute />}>
+                    <Route path="" element={<h1>COMING SOON...</h1>} />
                   </Route>
                   <Route
                     path="/login"
@@ -90,7 +71,7 @@ function App() {
                       )
                     }
                   />
-                  {/* <Route path="/not-found" element={<p>Not found</p>} /> */}
+                  <Route path="/*" element={<h1>COMING SOON...</h1>} />
                 </Routes>
               </div>
             </ReactComponentContextProvider>

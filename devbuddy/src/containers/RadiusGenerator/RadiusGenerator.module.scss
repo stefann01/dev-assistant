@@ -12,9 +12,9 @@
 .controlsContainer {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   width: 50%;
-  margin-bottom: 56px;
 }
 
 .controlsSection {
@@ -22,8 +22,14 @@
   flex-direction: row;
 }
 
+.controlsSection:last-child,
+.controlsSection:nth-child(2) {
+  margin-left: 10px;
+}
+
 .elementContainer {
-  width: 50%;
+  width: 50vmin;
+  height: 50vmin;
   aspect-ratio: 1 / 1;
   border: 2px dashed $white;
   position: relative;

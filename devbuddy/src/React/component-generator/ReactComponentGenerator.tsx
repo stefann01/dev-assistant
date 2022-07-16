@@ -13,14 +13,13 @@ export default function ReactComponentGenerator() {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          flex: 1,
         }}
       >
         <ComponentDetail
           style={{ width: "275px", minWidth: "275px", marginRight: "40px" }}
         />
-        <div style={{ width: "-webkit-fill-available" }}>
-          <ClassGenerator />
-        </div>
+        <ClassGenerator />
       </div>
     </div>
   );
