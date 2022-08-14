@@ -1,0 +1,53 @@
+@import "../../variables.scss";
+@import "../../mixins.scss";
+
+.container {
+  padding: 0px 30px 0px 30px;
+  width: stretch;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.title {
+  text-align: center;
+  height: 96px;
+  min-height: 96px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.content {
+  width: stretch;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex: 1;
+  height: calc(100% - 96px - 40px);
+  margin-bottom: 40px;
+  gap: 40px;
+}
+
+.codContainer {
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+  background: #212121;
+  border-radius: 4px;
+}
+
+.tabContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 56px;
+}
+
+.tabContent {
+  height: calc(100% - 56px);
+  overflow-y: auto;
+  margin-bottom: 10px;
+}

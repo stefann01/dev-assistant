@@ -101,7 +101,7 @@ export default function ClassGenerator() {
           logo={<UnitTestLogo />}
         />
       </div>
-      <div>
+      <div className={styles.content}>
         {activeTab === "component" && (
           <blockquote>
             <pre>

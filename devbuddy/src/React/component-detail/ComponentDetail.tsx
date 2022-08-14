@@ -71,20 +71,22 @@ export default function ComponentDetail({ style }: ComponentDetailProps) {
         </div>
       </div>
 
-      <div className={styles.propsContainer}>
-        <PropsDetail />
-      </div>
+      <div className={styles.allPropsContainer}>
+        <div className={styles.propsContainer}>
+          <PropsDetail />
+        </div>
 
-      <div className={styles.propsContainer}>
-        <StateDetail />
-      </div>
+        <div className={styles.propsContainer}>
+          <StateDetail />
+        </div>
 
-      <div className={styles.propsContainer}>
-        <EffectsDetail />
-      </div>
+        <div className={styles.propsContainer}>
+          <EffectsDetail />
+        </div>
 
-      <div className={styles.propsContainer}>
-        <RefDetail />
+        <div className={styles.propsContainer}>
+          <RefDetail />
+        </div>
       </div>
     </div>
   );

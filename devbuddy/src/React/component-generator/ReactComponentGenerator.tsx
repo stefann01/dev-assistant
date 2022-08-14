@@ -7,19 +7,19 @@ export default function ReactComponentGenerator() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>React class generator</h1>
-      <div
-        style={{
-          width: "stretch",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          flex: 1,
-        }}
-      >
-        <ComponentDetail
-          style={{ width: "275px", minWidth: "275px", marginRight: "40px" }}
-        />
+      <div className={styles.content}>
         <ClassGenerator />
+        <ComponentDetail
+          style={{
+            height: "100%",
+            maxHeight: "100%",
+            width: "275px",
+            minWidth: "275px",
+            marginRight: "40px",
+            marginBottom: "20px",
+            borderRadius: "10px",
+          }}
+        />
       </div>
     </div>
   );
