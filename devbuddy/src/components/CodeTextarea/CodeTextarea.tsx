@@ -47,7 +47,10 @@ export default function CodeTextarea() {
       <div className={styles.content}>
         <blockquote>
           <pre>
-            <code>{displayedCode}</code>
+            <code
+              className={styles.code}
+              dangerouslySetInnerHTML={{ __html: displayedCode }}
+            ></code>
           </pre>
         </blockquote>
       </div>

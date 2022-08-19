@@ -4,7 +4,6 @@ import Input from "../../components/Input/Input";
 import { useReactContext } from "../../contexts/ReactContextContext";
 import { ReactContextActions } from "../../reducers/ReactContextReducer";
 import ActionsDetail from "../actions-detail/actions-detail";
-import styles from "./ContextDetail.module.scss";
 import { ReactComponent as MinusIcon } from "../../assets/svg/minus.svg";
 import Button from "../../components/Button/Button";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
@@ -96,7 +95,7 @@ export default function ContextDetail() {
                     position: "relative",
                     width: "100%",
                   }}
-                  options={["string", "number", "boolean", "any"]}
+                  options={["string", "number", "boolean", "any", "void"]}
                   onChange={(value) =>
                     dispatch({
                       type: ReactContextActions.EDIT_PROP,

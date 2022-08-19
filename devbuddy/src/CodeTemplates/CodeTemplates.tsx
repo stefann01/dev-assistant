@@ -4,6 +4,7 @@ import babel from "prettier/parser-babel";
 import typescript from "prettier/parser-typescript";
 import {
   capitalize,
+  colorCode,
   getValidTypeName,
   getValidVariableName,
 } from "../helper/helper";
@@ -12,6 +13,75 @@ export type TSTemplateType = {
   entityName?: string;
   properties: Property[];
   entityType?: "class" | "builder";
+};
+
+const getStaticFieldsSnippet = (properties: Property[]) => {
+  return properties
+    .map((property) => {
+      return `<token#569CD6>${
+        property.access
+      }</token><token#569CD6> static</token>${
+        property.isReadonly ? "<token#569CD6> readonly</token>" : ""
+      }<token#9CDCFE> ${getValidVariableName(
+        property.name
+      )}</token>:<token#4EC9B0>${getValidTypeName(
+        property.type
+      )}</token> = <token#C8C8C8>${property.defaultValue}</token>; \n\t`;
+    })
+    .join("");
+};
+
+const getFunctionsSnippet = (properties: Property[]) => {
+  return properties
+    .map(
+      (func) =>
+        `\t<token#569CD6>${func.access}</token>${
+          func.isStatic ? " <token#569CD6>static</token>" : ""
+        }<token#DCDCAA> ${getValidVariableName(
+          func.name,
+          "func"
+        )}</token>(): <token#4EC9B0>${getValidTypeName(func.type)}</token> {}\n`
+    )
+    .join("");
+};
+
+const getConstructorSnippet = (properties: Property[]) => {
+  //WARNING: This is a hack to get the code to look good in the editor. Do not edit the format of the code below.
+  // prettier-ignore
+  return `<token#569CD6>constructor</token>(${
+    properties.length > 0
+      ? '\n'+properties
+          .map((property, index) => {
+            return `\t\t<token#569CD6>${property.access}${
+              property.isReadonly ? " readonly" : ""
+            }</token><token#9CDCFE> ${getValidVariableName(
+              property.name
+            )}</token>:<token#4EC9B0>${getValidTypeName(
+              property.type
+            )}</token> = <token#C8C8C8>${property.defaultValue}</token>, \n`;
+          })
+          .join("")
+      : ""}\t){}`;
+};
+
+const getBuilderFunctionsSnippet = (properties: Property[]) => {
+  return properties
+    .map((field, index) => {
+      const validFieldName = getValidVariableName(field.name);
+      const validFieldType = getValidTypeName(field.type);
+      return `<token#DCDCAA>set${capitalize(
+        validFieldName
+      )}</token>(<token#9CDCFE>${validFieldName}</token>:<token#4EC9B0>${validFieldType}</token>){
+        \t<token#569CD6>this</token>.<token#9CDCFE>${validFieldName}</token> = <token#9CDCFE>${validFieldName}</token>; 
+        \t<token#C586C0>return</token> <token#569CD6>this</token>;
+        }
+        <token#DCDCAA>get${capitalize(
+          validFieldName
+        )}</token>(): <token#4EC9B0>${validFieldType}</token>{ 
+        \t<token#C586C0>return</token> <token#569CD6>this</token>.<token#9CDCFE>${validFieldName}</token>
+        }\n${index < properties.length - 1 ? "\t " : ""}`;
+    })
+    .join("");
 };
 
 // Read this for builder: https://stackoverflow.com/questions/4313172/builder-design-pattern-why-do-we-need-a-director#:~:text=The%20StringBuilder%20class%20in%20the,does%20not%20include%20a%20director.
@@ -28,62 +98,14 @@ export const TSTemplate = ({
   const normalFields = properties.filter(
     (prop) => !prop.isStatic && !prop.isFunction
   );
-  return prettier.format(
-    `class ${entityName || "MyEntity"} { 
-        ${staticFields
-          .map(
-            (field) =>
-              `${field.access} static ${
-                field.isReadonly ? "readonly" : ""
-              } ${getValidVariableName(field.name)}:${getValidTypeName(
-                field.type
-              )} = ${field.defaultValue}'' \n`
-          )
-          .join("")}
-        constructor(${normalFields
-          .map(
-            (prop, index) =>
-              `${prop.access} ${
-                prop.isReadonly ? "readonly " : ""
-              }${getValidVariableName(prop.name)}:${getValidTypeName(
-                prop.type
-              )} ${index < properties.length - 1 ? "," : ""}  
-          `
-          )
-          .join("")}) { }
-
-          ${
-            entityType && entityType === "builder"
-              ? normalFields
-                  .filter((field) => !field.isStatic || !field.isFunction)
-                  .map((field) => {
-                    const validFieldName = getValidVariableName(field.name);
-                    const validFieldType = getValidTypeName(field.type);
-                    return `set${capitalize(
-                      validFieldName
-                    )}(${validFieldName}:${validFieldType}){this.${validFieldName} = ${validFieldName}; return this;} \n 
-                      get${capitalize(
-                        validFieldName
-                      )}(): ${validFieldType}{ return this.${validFieldName}}`;
-                  })
-                  .join("")
-              : ""
-          }
-
-      ${functions
-        .map(
-          (func) =>
-            `${func.access} ${
-              func.isStatic ? "static" : ""
-            } ${getValidVariableName(func.name)}(){} \n`
-        )
-        .join("")}
-}`,
-    {
-      parser: "typescript",
-      plugins: [typescript, babel],
-    }
-  );
+  //WARNING: This is a hack to get the code to look good in the editor. Do not edit the format of the code below.
+  // prettier-ignore
+  return colorCode(
+    `<token#4FC1FF>class</token> <token#4EC9B0>${entityName || "MyEntity"}</token> {
+\t${staticFields.length > 0 ? getStaticFieldsSnippet(staticFields)+'\n' : ""}
+\t${getConstructorSnippet(normalFields)}\n
+\t${entityType && entityType === "builder"? getBuilderFunctionsSnippet(normalFields.filter((field) => !field.isStatic || !field.isFunction)): ""}\n
+${functions.length > 0 ? getFunctionsSnippet(functions):''}\n}`);
 };
 
 export const TSInterfaceTemplate = ({

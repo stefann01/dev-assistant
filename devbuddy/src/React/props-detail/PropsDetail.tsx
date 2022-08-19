@@ -34,7 +34,7 @@ export default function PropsDetail() {
         <div className={styles.rowItem}>
           <Autocomplete
             value={prop.type}
-            options={["string", "number", "boolean", "any"]}
+            options={["string", "number", "boolean", "any", "void"]}
             onChange={(value) =>
               dispatch({
                 type: ReactComponentActions.EDIT_PROP,

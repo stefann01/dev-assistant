@@ -3,6 +3,11 @@
   flex-direction: row;
 }
 
-* {
-  font-family: "Jost";
+pre,
+code {
+  font-family: "Source Code Pro", monospace;
+}
+
+pre {
+  tab-size: 20px;
 }

@@ -160,8 +160,8 @@ export const isValidDependencyArrayItem = (str: string) => {
   return isValidObjectPropertyOrProperty(str) && !isReservedKeyWord(str);
 };
 
-export const colorParagraph = (str: string) => {
-  return `<p style="color: #00ff00;">${str}</p>`;
+export const colorParagraph = (str: string, hex: string) => {
+  return `<span style="color: ${hex};">${str}</span>`;
 };
 
 export const downloadFile = (filename: string, text: string) => {
@@ -202,3 +202,35 @@ export function copyTextToClipboard(
         }
   );
 }
+
+function getTokens(str: string): { color: string; text: string }[] {
+  let tokens = [];
+  while (str.length > 0) {
+    let tokenBeginIndex = str.search(/<token#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})>/);
+    let tokenEndIndex = str.indexOf("</token>");
+    if (tokenBeginIndex >= 0 && tokenEndIndex >= 0) {
+      let token = str.slice(tokenBeginIndex + 6, tokenEndIndex);
+      let color = token.slice(0, 7);
+      let text = token.slice(8);
+      tokens.push({ color, text });
+      str = str.slice(tokenEndIndex + 8, str.length);
+    } else {
+      str = "";
+    }
+  }
+
+  return tokens;
+}
+
+export const colorCode = (codeText: string) => {
+  const tokens = getTokens(codeText);
+  const originalCode = codeText;
+  let coloredCode = originalCode;
+  for (let i = 0; i < tokens.length; i++) {
+    coloredCode = coloredCode.replace(
+      `<token${tokens[i].color}>${tokens[i].text}</token>`,
+      colorParagraph(tokens[i].text, tokens[i].color)
+    );
+  }
+  return coloredCode;
+};

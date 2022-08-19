@@ -150,7 +150,7 @@ export default function PropertiesPanel() {
                     position: "relative",
                     width: "100%",
                   }}
-                  options={["string", "number", "boolean", "any"]}
+                  options={["string", "number", "boolean", "any", "void"]}
                   onChange={(value) =>
                     editProperty(index, {
                       ...prop,

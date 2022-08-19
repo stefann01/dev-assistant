@@ -5,7 +5,7 @@ export default class Property {
     public isFunction: boolean = false,
     public isStatic: boolean = false,
     public isReadonly: boolean = false,
-    public defaultValue: any = "",
+    public defaultValue: any = `""`,
     public access: "public" | "private" | "protected" = "public"
   ) {}
 }
