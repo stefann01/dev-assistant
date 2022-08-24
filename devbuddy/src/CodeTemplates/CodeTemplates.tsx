@@ -101,7 +101,7 @@ export const TSTemplate = ({
   //WARNING: This is a hack to get the code to look good in the editor. Do not edit the format of the code below.
   // prettier-ignore
   return colorCode(
-    `<token#4FC1FF>class</token> <token#4EC9B0>${entityName || "MyEntity"}</token> {
+    `<token#4FC1FF>class</token> <token#4EC9B0>${entityName}</token> {
 \t${staticFields.length > 0 ? getStaticFieldsSnippet(staticFields)+'\n' : ""}
 \t${getConstructorSnippet(normalFields)}\n
 \t${entityType && entityType === "builder"? getBuilderFunctionsSnippet(normalFields.filter((field) => !field.isStatic || !field.isFunction)): ""}\n
@@ -114,23 +114,36 @@ export const TSInterfaceTemplate = ({
 }: TSTemplateType) => {
   const functions = properties.filter((prop) => prop.isFunction);
   const normalFields = properties.filter((prop) => !prop.isFunction);
-  return prettier.format(
-    `interface ${entityName}{
-    ${normalFields
-      .map(
-        (prop) =>
-          `${prop.isReadonly ? "readonly" : ""} ${getValidVariableName(
-            prop.name
-          )}:${getValidTypeName(prop.type)},  
-          `
-      )
-      .join("")} \n
-      ${functions.map((prop) => `${prop.name}():${prop.type}`).join("")} \n
-  }`,
-    {
-      parser: "typescript",
-      plugins: [typescript, babel],
-    }
+  return colorCode(
+    `<token#4FC1FF>interface</token> <token#4EC9B0>${entityName}</token> {
+${
+  normalFields.length > 0
+    ? normalFields
+        .map(
+          (prop) =>
+            `\t${
+              prop.isReadonly ? "<token#4FC1FF>readonly</token>" : ""
+            }<token#9CDCFE> ${getValidVariableName(
+              prop.name
+            )}</token>:<token#4EC9B0>${getValidTypeName(prop.type)}</token>,\n`
+        )
+        .join("") + "\n"
+    : ""
+}${
+      functions.length
+        ? functions
+            .map(
+              (prop) =>
+                `\t<token#DCDCAA> ${getValidVariableName(
+                  prop.name,
+                  "func"
+                )}</token>():<token#4EC9B0>${getValidTypeName(
+                  prop.type
+                )}</token>;\n`
+            )
+            .join("") + "\n"
+        : ""
+    }}`
   );
 };
 
